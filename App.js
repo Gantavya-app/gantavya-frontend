@@ -1,26 +1,22 @@
 import { StatusBar } from "expo-status-bar"
 import { Image, StyleSheet, Text, View } from "react-native"
-import SplashScreen from "./src/containers/SplashScreen"
-import HomeScreen from "./src/screens/HomeScreen"
+import SplashScreen from "./src/screens/Splash"
 import { NavigationContainer } from "@react-navigation/native"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import { HomeScreen, SettingsScreen } from "./src/screens"
+
+const Stack = createNativeStackNavigator()
 
 export default function App() {
 	return (
 		<NavigationContainer>
-			<View style={styles.container}>
-				<StatusBar style="auto" />
-				<HomePage />
+			<StatusBar style="auto" />
+
+			<Stack.Navigator>
+				<Stack.Screen name="Home" component={HomeScreen} />
+				<Stack.Screen name="Settings" component={SettingsScreen} />
 				{/* <SplashScreen /> */}
-			</View>
+			</Stack.Navigator>
 		</NavigationContainer>
 	)
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
-	},
-})

@@ -10,7 +10,7 @@ export default function SettingsScreen() {
         <Text>This page will display list of settings.</Text>
         <Text>
           Profile Settings, Account Settings, Dark/Light Mode, Terms of Use,
-          Privacy Policy, About Us (Developers), Contact Us, etc.
+          Privacy Policy, About Us (Developers), Contact Us, Log Out, etc.
         </Text>
       </View>
     </UserLayout>

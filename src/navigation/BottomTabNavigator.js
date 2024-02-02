@@ -59,7 +59,7 @@ const getTabIconName = (route) => {
   return navigationTabs.find((item) => item.name === route.name).iconName
 }
 
-const BottomTabNavigator = () => {
+export default function BottomTabNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -85,8 +85,6 @@ const BottomTabNavigator = () => {
     </Tab.Navigator>
   )
 }
-
-export default BottomTabNavigator
 
 const styles = StyleSheet.create({
   // sceneContainerStyle: {

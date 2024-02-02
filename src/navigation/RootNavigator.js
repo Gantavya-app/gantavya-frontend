@@ -1,12 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native"
 import BottomTabNavigator from "./BottomTabNavigator"
+import GuestNavigator from "./GuestNavigator"
 
-const RootNavigator = () => {
+export default function RootNavigator() {
+  const isLoggedIn = false
+
   return (
     <NavigationContainer>
-      <BottomTabNavigator />
+      {isLoggedIn ? <BottomTabNavigator /> : <GuestNavigator />}
     </NavigationContainer>
   )
 }
-
-export default RootNavigator

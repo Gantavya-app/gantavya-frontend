@@ -29,7 +29,7 @@ yarn-error.*
 *.pem
 
 # vscode
-.vscode
+.vscode/
 
 # local env files
 .env*.local

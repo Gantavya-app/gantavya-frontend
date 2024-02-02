@@ -16,7 +16,7 @@ const navigationTabs = [
   {
     id: 1,
     name: "Home",
-    headerTitle: "Gantavya Home",
+    headerTitle: "Gantavya",
     screen: HomeScreen,
     label: "Home",
     iconName: "home",

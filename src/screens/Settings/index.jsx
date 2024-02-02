@@ -1,17 +1,18 @@
 import React from "react"
-import { Button, View, Text } from "react-native"
+import { View, Text } from "react-native"
+import UserLayout from "../../utils/Layouts/UserLayout"
 
-const SettingsScreen = ({ navigation }) => {
+export default function SettingsScreen() {
   return (
-    <View>
-      <Text>Settings</Text>
-      <Text>This page will display list of settings.</Text>
-      <Text>
-        Profile Settings, Account Settings, Dark/Light Mode, Terms of Use,
-        Privacy Policy, About Us (Developers), Contact Us, etc.
-      </Text>
-    </View>
+    <UserLayout>
+      <View>
+        <Text>Settings</Text>
+        <Text>This page will display list of settings.</Text>
+        <Text>
+          Profile Settings, Account Settings, Dark/Light Mode, Terms of Use,
+          Privacy Policy, About Us (Developers), Contact Us, etc.
+        </Text>
+      </View>
+    </UserLayout>
   )
 }
-
-export default SettingsScreen

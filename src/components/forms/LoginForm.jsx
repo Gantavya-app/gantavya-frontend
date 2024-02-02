@@ -1,7 +1,15 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native"
+import { AuthContext } from "../../contexts/AuthContext"
 
 export default function LoginForm() {
+  const { setUser } = useContext(AuthContext)
+
+  function handleLogin() {
+    console.log("User logged in")
+    setUser((prevUser) => ({ isLoggedIn: !prevUser.isLoggedIn }))
+  }
+
   return (
     <View>
       <TextInput
@@ -24,10 +32,7 @@ export default function LoginForm() {
       >
         <Text style={styles.link}>Forgot password?</Text>
       </Pressable>
-      <Pressable
-        style={styles.button}
-        onPress={() => console.log("Login button pressed")}
-      >
+      <Pressable style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </Pressable>
     </View>

@@ -2,6 +2,10 @@ import React from "react"
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native"
 
 export default function RegisterForm() {
+  function handleRegisterUser() {
+    console.log("User Registered!")
+  }
+
   return (
     <View>
       <TextInput
@@ -27,12 +31,7 @@ export default function RegisterForm() {
         style={styles.textInputField}
       />
 
-      <Pressable
-        onPress={() => {
-          console.log("Register button pressed")
-        }}
-        style={styles.button}
-      >
+      <Pressable onPress={handleRegisterUser} style={styles.button}>
         <Text style={styles.buttonText}>Register</Text>
       </Pressable>
     </View>

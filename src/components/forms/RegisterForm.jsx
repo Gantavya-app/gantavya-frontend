@@ -1,9 +1,13 @@
+import { useNavigation } from "@react-navigation/native"
 import React from "react"
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native"
 
 export default function RegisterForm() {
+  const navigation = useNavigation()
+
   function handleRegisterUser() {
     console.log("User Registered!")
+    navigation.navigate("Login")
   }
 
   return (

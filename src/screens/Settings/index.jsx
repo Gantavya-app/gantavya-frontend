@@ -1,8 +1,14 @@
-import React from "react"
-import { View, Text } from "react-native"
+import React, { useContext } from "react"
+import { View, Text, Pressable, StyleSheet } from "react-native"
 import UserLayout from "../../utils/Layouts/UserLayout"
+import { AuthContext } from "../../contexts/AuthContext"
 
 export default function SettingsScreen() {
+  const { setUser } = useContext(AuthContext)
+
+  function handleLogoutUser() {
+    setUser({ isLoggedIn: false })
+  }
   return (
     <UserLayout>
       <View>
@@ -13,6 +19,21 @@ export default function SettingsScreen() {
           Privacy Policy, About Us (Developers), Contact Us, Log Out, etc.
         </Text>
       </View>
+
+      <View>
+        <Pressable onPress={handleLogoutUser} style={styles.listItemStyle}>
+          <Text style={{ color: "rgb(255,60,50)" }}>Log Out</Text>
+        </Pressable>
+      </View>
     </UserLayout>
   )
 }
+
+const styles = StyleSheet.create({
+  listItemStyle: {
+    borderTopWidth: 1,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderColor: "lightgray",
+  },
+})

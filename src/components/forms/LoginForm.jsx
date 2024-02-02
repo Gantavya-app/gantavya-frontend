@@ -7,7 +7,7 @@ export default function LoginForm() {
 
   function handleLogin() {
     console.log("User logged in")
-    setUser((prevUser) => ({ isLoggedIn: !prevUser.isLoggedIn }))
+    setUser({ isLoggedIn: true }) // TODO: Implement actual login logic
   }
 
   return (

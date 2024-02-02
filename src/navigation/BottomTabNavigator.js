@@ -1,8 +1,14 @@
 import React from "react"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { HomeScreen, SettingsScreen } from "../screens"
 import { StyleSheet } from "react-native"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { AntDesign } from "@expo/vector-icons"
+import {
+  HomeScreen,
+  ExploreScreen,
+  IdentifyScreen,
+  SavedScreen,
+  SettingsScreen,
+} from "../screens"
 
 const Tab = createBottomTabNavigator()
 
@@ -15,30 +21,30 @@ const navigationTabs = [
     label: "Home",
     iconName: "home",
   },
-  // {
-  //   id: 2,
-  //   name: "Explore",
-  //   headerTitle: "Explore",
-  //   screen: ExploreScreen,
-  //   label: "Explore",
-  //   iconName: "find"
-  // },
-  // {
-  //   id: 3,
-  //   name: "Identify",
-  //   headerTitle: "Identify",
-  //   screen: IdentifyScreen,
-  //   label: "Identify",
-  //   iconName: "search1"
-  // },
-  // {
-  //   id: 4,
-  //   name: "Saved",
-  //   headerTitle: "Saved",
-  //   screen: SavedScreen,
-  //   label: "Saved",
-  //   iconName: "staro"
-  // },
+  {
+    id: 2,
+    name: "Explore",
+    headerTitle: "Explore",
+    screen: ExploreScreen,
+    label: "Explore",
+    iconName: "find",
+  },
+  {
+    id: 3,
+    name: "Identify",
+    headerTitle: "Identify",
+    screen: IdentifyScreen,
+    label: "Identify",
+    iconName: "search1",
+  },
+  {
+    id: 4,
+    name: "Saved",
+    headerTitle: "Saved",
+    screen: SavedScreen,
+    label: "Saved",
+    iconName: "staro",
+  },
   {
     id: 5,
     name: "Settings",

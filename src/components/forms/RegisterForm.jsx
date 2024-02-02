@@ -1,7 +1,7 @@
 import React from "react"
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native"
 
-export default function LoginForm() {
+export default function RegisterForm() {
   return (
     <View>
       <TextInput
@@ -18,17 +18,22 @@ export default function LoginForm() {
         placeholderTextColor={"gray"}
         style={styles.textInputField}
       />
+
+      <TextInput
+        textContentType="password"
+        secureTextEntry={true}
+        placeholder="Confirm Password"
+        placeholderTextColor={"gray"}
+        style={styles.textInputField}
+      />
+
       <Pressable
-        style={{ width: "fit-content", alignSelf: "flex-end" }}
-        onPress={() => console.log("Forgot password pressed")}
-      >
-        <Text style={styles.link}>Forgot password?</Text>
-      </Pressable>
-      <Pressable
+        onPress={() => {
+          console.log("Register button pressed")
+        }}
         style={styles.button}
-        onPress={() => console.log("Login button pressed")}
       >
-        <Text style={styles.buttonText}>Login</Text>
+        <Text style={styles.buttonText}>Register</Text>
       </Pressable>
     </View>
   )

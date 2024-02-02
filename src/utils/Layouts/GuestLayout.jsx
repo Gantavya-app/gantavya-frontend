@@ -8,7 +8,6 @@ export default function GuestLayout({ children }) {
 const styles = StyleSheet.create({
   guestLayoutContainer: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
     padding: 16,
   },

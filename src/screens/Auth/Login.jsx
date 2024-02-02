@@ -6,23 +6,22 @@ import LoginForm from "../../components/forms/LoginForm"
 export default function LoginScreen({ navigation }) {
   return (
     <GuestLayout>
-      <View>
-        <Image
-          source={require("../../../assets/logos/logo_green.png")}
-          style={{ width: 100, height: 100 }}
-        />
-        <Text style={styles.heading}>Login</Text>
-      </View>
-      <View>
-        <LoginForm />
-
-        <View style={{ marginTop: 24 }}>
-          <Text style={styles.secondaryText}>
-            Don't have an account?{" "}
+      <View style={styles.containerStyle}>
+        <View>
+          <Image
+            source={require("../../../assets/logos/logo_green.png")}
+            style={styles.logoStyle}
+          />
+          <Text style={styles.heading}>Login</Text>
+        </View>
+        <View>
+          <LoginForm />
+          <View style={styles.secondaryTextGroup}>
+            <Text style={styles.secondaryText}>Don't have an account? </Text>
             <Pressable onPress={() => navigation.navigate("Register")}>
               <Text style={styles.link}>Register</Text>
             </Pressable>
-          </Text>
+          </View>
         </View>
       </View>
     </GuestLayout>
@@ -30,9 +29,19 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  containerStyle: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 16,
+  },
+  logoStyle: {
+    width: 100,
+    height: 100,
+    alignSelf: "center",
+    marginBottom: 50,
+  },
   heading: {
     fontSize: 24,
-    textAlign: "center",
     fontWeight: "bold",
     marginVertical: 20,
   },
@@ -40,8 +49,10 @@ const styles = StyleSheet.create({
     color: "rgb(0,122, 255)",
   },
   secondaryText: {
-    fontSize: 16,
-    textAlign: "center",
     color: "gray",
+  },
+  secondaryTextGroup: {
+    flexDirection: "row",
+    justifyContent: "center",
   },
 })

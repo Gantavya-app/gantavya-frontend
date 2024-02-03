@@ -1,17 +1,14 @@
 import React from "react"
-import { Button, Text, View } from "react-native"
-import Layout from "../../utils/Layout"
+import { Text, View } from "react-native"
+import UserLayout from "../../utils/Layouts/UserLayout"
 
-export default function HomeScreen({ navigation }) {
-	return (
-		<Layout>
-			<View>
-				<Text>Welcome to Gantavya!</Text>
-				<Button
-					title="Go to Settings"
-					onPress={() => navigation.navigate("Settings")}
-				/>
-			</View>
-		</Layout>
-	)
+export default function HomeScreen() {
+  return (
+    <UserLayout>
+      <View>
+        <Text>This screen will greet the user.</Text>
+        <Text>There will be time, temperature, weather details, etc.</Text>
+      </View>
+    </UserLayout>
+  )
 }

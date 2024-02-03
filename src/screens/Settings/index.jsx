@@ -1,19 +1,39 @@
-import React from "react"
-import { Button, View, Text } from "react-native"
-import Layout from "../../utils/Layout"
+import React, { useContext } from "react"
+import { View, Text, Pressable, StyleSheet } from "react-native"
+import UserLayout from "../../utils/Layouts/UserLayout"
+import { AuthContext } from "../../contexts/AuthContext"
 
-const SettingsScreen = ({ navigation }) => {
-	return (
-		<Layout>
-			<View>
-				<Text>Settings</Text>
-				<Button
-					title="Go to Home"
-					onPress={() => navigation.navigate("Home")}
-				/>
-			</View>
-		</Layout>
-	)
+export default function SettingsScreen() {
+  const { setUser } = useContext(AuthContext)
+
+  function handleLogoutUser() {
+    setUser({ isLoggedIn: false })
+  }
+  return (
+    <UserLayout>
+      <View>
+        <Text>Settings</Text>
+        <Text>This page will display list of settings.</Text>
+        <Text>
+          Profile Settings, Account Settings, Dark/Light Mode, Terms of Use,
+          Privacy Policy, About Us (Developers), Contact Us, Log Out, etc.
+        </Text>
+      </View>
+
+      <View>
+        <Pressable onPress={handleLogoutUser} style={styles.listItemStyle}>
+          <Text style={{ color: "rgb(255,60,50)" }}>Log Out</Text>
+        </Pressable>
+      </View>
+    </UserLayout>
+  )
 }
 
-export default SettingsScreen
+const styles = StyleSheet.create({
+  listItemStyle: {
+    borderTopWidth: 1,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderColor: "lightgray",
+  },
+})

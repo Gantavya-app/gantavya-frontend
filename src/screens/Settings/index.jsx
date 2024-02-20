@@ -4,11 +4,8 @@ import UserLayout from "../../utils/Layouts/UserLayout"
 import { AuthContext } from "../../contexts/AuthContext"
 
 export default function SettingsScreen() {
-  const { setUser } = useContext(AuthContext)
+  const { logOut } = useContext(AuthContext)
 
-  function handleLogoutUser() {
-    setUser({ isLoggedIn: false })
-  }
   return (
     <UserLayout>
       <View>
@@ -21,7 +18,7 @@ export default function SettingsScreen() {
       </View>
 
       <View>
-        <Pressable onPress={handleLogoutUser} style={styles.listItemStyle}>
+        <Pressable onPress={logOut} style={styles.listItemStyle}>
           <Text style={{ color: "rgb(255,60,50)" }}>Log Out</Text>
         </Pressable>
       </View>

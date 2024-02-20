@@ -1,8 +1,11 @@
 import React, { createContext, useState } from "react"
 
 const initialUserState = {
-  isLoggedIn: false,
+  name: "",
   email: "",
+  token: "",
+  isAdmin: false,
+  isLoggedIn: false,
 }
 
 export const AuthContext = createContext({

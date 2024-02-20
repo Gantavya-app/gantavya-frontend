@@ -21,12 +21,7 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false)
 
   function handleLogin() {
-    console.log("email", email, "password", password)
-
-    console.log("User logged in")
-
     if (!email || !password) {
-      console.log("Please fill in all fields")
       Toast.show("Please fill in all fields")
       return
     }
@@ -46,8 +41,15 @@ export default function LoginForm() {
         })
       })
       .catch((err) => {
-        console.log("error", err)
-        Toast.show("An error occurred")
+        const errorMessage =
+          err?.response?.data?.detail || err?.message || "An error occurred"
+
+        console.log(errorMessage)
+
+        Toast.show(errorMessage, {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.BOTTOM,
+        })
       })
       .finally(() => {
         setLoading(false)
@@ -66,7 +68,7 @@ export default function LoginForm() {
         />
       </View>
 
-      <View>
+      <View style={{ position: "relative", marginBottom: 12 }}>
         <TextInput
           onChangeText={(text) => setPassword(text)}
           textContentType={showPassword ? "none" : "password"}
@@ -128,16 +130,20 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: "lightgray",
-    marginBottom: 10,
+    marginBottom: 12,
     borderRadius: 5,
   },
   passwordInputField: {
     padding: 10,
     borderWidth: 1,
     borderColor: "lightgray",
-    marginBottom: 10,
     borderRadius: 5,
     paddingRight: 40,
   },
-  visibilityIcon: { position: "absolute", right: 10, top: 9, bottom: 9 },
+  visibilityIcon: {
+    position: "absolute",
+    right: 10,
+    top: "50%",
+    transform: [{ translateY: -10 }],
+  },
 })

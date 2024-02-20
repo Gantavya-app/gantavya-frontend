@@ -1,34 +1,30 @@
 import { useNavigation } from "@react-navigation/native"
-import React from "react"
+import React, { useState } from "react"
 import {
   ActivityIndicator,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from "react-native"
 import { axiosInstance } from "../../utils/config/api"
 import Toast from "react-native-root-toast"
+import { Feather } from "@expo/vector-icons"
 
 export default function RegisterForm() {
   const navigation = useNavigation()
 
-  const [name, setName] = React.useState("")
-  const [email, setEmail] = React.useState("")
-  const [password, setPassword] = React.useState("")
-  const [confirmPassword, setConfirmPassword] = React.useState("")
-  const [loading, setLoading] = React.useState(false)
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   function handleRegisterUser() {
-    if (!name || !email || !password || !confirmPassword) {
+    if (!name || !email || !password) {
       Toast.show("Please fill in all fields", {
-        duration: Toast.durations.SHORT,
-        position: Toast.positions.BOTTOM,
-      })
-      return
-    } else if (password !== confirmPassword) {
-      Toast.show("Passwords do not match", {
         duration: Toast.durations.SHORT,
         position: Toast.positions.BOTTOM,
       })
@@ -47,8 +43,12 @@ export default function RegisterForm() {
         Toast.show("User registered successfully")
       })
       .catch((err) => {
-        console.log("error", err)
-        Toast.show("An error occurred", {
+        const errorMessage =
+          err?.response?.data?.detail || err?.message || "An error occurred"
+
+        console.log(errorMessage)
+
+        Toast.show(errorMessage, {
           duration: Toast.durations.SHORT,
           position: Toast.positions.BOTTOM,
         })
@@ -80,27 +80,29 @@ export default function RegisterForm() {
         style={styles.textInputField}
       />
 
-      <TextInput
-        onChangeText={(text) => {
-          setPassword(text)
-        }}
-        textContentType="password"
-        secureTextEntry={true}
-        placeholder="Password"
-        placeholderTextColor={"gray"}
-        style={styles.textInputField}
-      />
-
-      <TextInput
-        onChangeText={(text) => {
-          setConfirmPassword(text)
-        }}
-        textContentType="password"
-        secureTextEntry={true}
-        placeholder="Confirm Password"
-        placeholderTextColor={"gray"}
-        style={styles.textInputField}
-      />
+      <View style={{ position: "relative", marginBottom: 12 }}>
+        <TextInput
+          onChangeText={(text) => {
+            setPassword(text)
+          }}
+          textContentType={showPassword ? "none" : "password"}
+          secureTextEntry={!showPassword}
+          placeholder="Password"
+          placeholderTextColor={"gray"}
+          style={styles.passwordInputField}
+        />
+        <TouchableOpacity
+          activeOpacity={0.8}
+          style={styles.visibilityIcon}
+          onPress={() => setShowPassword(!showPassword)}
+        >
+          <Feather
+            name={showPassword ? "eye-off" : "eye"}
+            size={20}
+            color="gray"
+          />
+        </TouchableOpacity>
+      </View>
 
       <Pressable onPress={handleRegisterUser} style={styles.button}>
         {loading ? (
@@ -140,7 +142,20 @@ const styles = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: "lightgray",
-    marginBottom: 10,
+    marginBottom: 12,
     borderRadius: 5,
+  },
+  passwordInputField: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 5,
+    paddingRight: 40,
+  },
+  visibilityIcon: {
+    position: "absolute",
+    right: 10,
+    top: "50%",
+    transform: [{ translateY: -10 }],
   },
 })

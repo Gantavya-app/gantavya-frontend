@@ -7,7 +7,7 @@ import {
   ExploreScreen,
   IdentifyScreen,
   SavedScreen,
-  SettingsScreen,
+  MenuScreen,
 } from "../screens"
 
 const Tab = createBottomTabNavigator()
@@ -47,11 +47,11 @@ const navigationTabs = [
   },
   {
     id: 5,
-    name: "Settings",
-    headerTitle: "Settings",
-    screen: SettingsScreen,
-    label: "Settings",
-    iconName: "setting",
+    name: "Menu",
+    headerTitle: "Menu",
+    screen: MenuScreen,
+    label: "Menu",
+    iconName: "menuunfold",
   },
 ]
 
@@ -64,12 +64,13 @@ export default function BottomTabNavigator() {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
-        // tabBarStyle: styles.tabBarStyle,
+        tabBarStyle: styles.tabBarStyle,
         tabBarIcon: ({ color }) => (
           <AntDesign name={getTabIconName(route)} size={24} color={color} />
         ),
+        tabBarItemStyle: { padding: 5 },
       })}
-      // sceneContainerStyle={styles.sceneContainerStyle}
+      sceneContainerStyle={styles.sceneContainerStyle}
     >
       {navigationTabs?.length &&
         navigationTabs?.map((tab) => (
@@ -87,8 +88,10 @@ export default function BottomTabNavigator() {
 }
 
 const styles = StyleSheet.create({
-  // sceneContainerStyle: {
-  // flex: 1,
-  // },
-  // tabBarStyle: {},
+  sceneContainerStyle: {
+    flex: 1,
+  },
+  tabBarStyle: {
+    height: 60,
+  },
 })

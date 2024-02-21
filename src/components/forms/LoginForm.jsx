@@ -14,7 +14,7 @@ import Toast from "react-native-root-toast"
 import { axiosInstance } from "../../utils/config/api"
 
 export default function LoginForm() {
-  const { setUser } = useContext(AuthContext)
+  const { saveUser } = useContext(AuthContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -29,16 +29,17 @@ export default function LoginForm() {
     setLoading(true)
     axiosInstance
       .post("/users/login/", { email, password })
-      .then((res) => {
-        console.log("res", res)
+      .then(async (res) => {
         Toast.show("User logged in successfully")
-        setUser({
+        const user = {
           name: res.data.name,
           email: res.data.email,
           token: res.data.token,
           isAdmin: res.data.isAdmin,
           isLoggedIn: true,
-        })
+        }
+
+        saveUser(user)
       })
       .catch((err) => {
         const errorMessage =

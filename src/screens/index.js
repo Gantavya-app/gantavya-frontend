@@ -7,6 +7,16 @@ import MenuScreen from "./Menu"
 import LoginScreen from "./Auth/Login"
 import RegisterScreen from "./Auth/Register"
 
+import AboutScreen from "./Menu/containers/About"
+import AccountScreen from "./Menu/containers/Account"
+import ContactScreen from "./Menu/containers/Contact"
+import FeedbackScreen from "./Menu/containers/Feedback"
+import HelpScreen from "./Menu/containers/Help"
+import PrivacyScreen from "./Menu/containers/Privacy"
+import ProfileScreen from "./Menu/containers/Profile"
+import ReportScreen from "./Menu/containers/Report"
+import SettingsScreen from "./Menu/containers/SettingsScreen"
+
 export {
   HomeScreen,
   ExploreScreen,
@@ -15,4 +25,13 @@ export {
   MenuScreen,
   LoginScreen,
   RegisterScreen,
+  AboutScreen,
+  AccountScreen,
+  ContactScreen,
+  FeedbackScreen,
+  PrivacyScreen,
+  ProfileScreen,
+  ReportScreen,
+  SettingsScreen,
+  HelpScreen,
 }

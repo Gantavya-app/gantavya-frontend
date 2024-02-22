@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, View } from "react-native"
+import { Button, Text, View } from "react-native"
 
 const AccountScreen = () => {
   // "deleteuser"

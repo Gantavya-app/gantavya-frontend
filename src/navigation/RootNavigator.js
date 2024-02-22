@@ -3,7 +3,15 @@ import BottomTabNavigator from "./BottomTabNavigator"
 import { useContext } from "react"
 import { AuthContext } from "../contexts/AuthContext"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { LoginScreen, RegisterScreen } from "../screens"
+import {
+  AboutScreen,
+  AccountScreen,
+  ContactScreen,
+  LoginScreen,
+  PrivacyScreen,
+  ProfileScreen,
+  RegisterScreen,
+} from "../screens"
 
 const Stack = createNativeStackNavigator()
 
@@ -19,11 +27,23 @@ export default function RootNavigator() {
         }}
       >
         {isLoggedIn ? (
-          <Stack.Group>
+          <Stack.Group
+            screenOptions={{
+              headerShown: true,
+            }}
+          >
             <Stack.Screen
               name="LoggedInScreen"
               component={BottomTabNavigator}
+              options={{
+                headerShown: false,
+              }}
             />
+            <Stack.Screen name="About" component={AboutScreen} />
+            <Stack.Screen name="Account" component={AccountScreen} />
+            <Stack.Screen name="Contact" component={ContactScreen} />
+            <Stack.Screen name="Privacy" component={PrivacyScreen} />
+            <Stack.Screen name="Profile" component={ProfileScreen} />
           </Stack.Group>
         ) : (
           <Stack.Group>

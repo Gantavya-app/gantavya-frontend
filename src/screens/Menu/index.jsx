@@ -13,18 +13,38 @@ import AboutScreen from "./containers/About"
 export default function MenuScreen({ navigation }) {
   const { logOut } = useContext(AuthContext)
 
+  const navigateToProfile = () => {
+    navigation.navigate("Profile")
+  }
+
+  const navigateToAccountSettings = () => {
+    navigation.navigate("Account")
+  }
+
+  const navigateToPrivacyPolicy = () => {
+    navigation.navigate("Privacy")
+  }
+
+  const navigateToAbout = () => {
+    navigation.navigate("About")
+  }
+
+  const navigateToContact = () => {
+    navigation.navigate("Contact")
+  }
+
   const menuOptions = [
     {
       icon: "person",
       text: "Profile Settings",
       name: "Profile",
-      screen: ProfileScreen,
+      action: navigateToProfile,
     },
     {
       icon: "lock",
       text: "Account Settings",
       name: "Account",
-      screen: AccountScreen,
+      action: navigateToAccountSettings,
     },
     // { icon: "moon", text: "Dark Mode",component:  },
     // { icon: "lightbulb", text: "Light Mode",component:  },
@@ -32,19 +52,19 @@ export default function MenuScreen({ navigation }) {
       icon: "shield",
       text: "Privacy Policy",
       name: "Privacy",
-      screen: PrivacyScreen,
+      action: navigateToPrivacyPolicy,
     },
     {
       icon: "information-circle",
       text: "About Us",
       name: "About",
-      screen: AboutScreen,
+      action: navigateToAbout,
     },
     {
       icon: "call",
       text: "Contact Us",
       name: "Contact",
-      screen: ContactScreen,
+      action: navigateToContact,
     },
   ]
 
@@ -54,7 +74,7 @@ export default function MenuScreen({ navigation }) {
         {menuOptions.map((option, index) => {
           return (
             <Pressable
-              onPress={() => console.warn(option.name)}
+              onPress={option?.action}
               key={index}
               style={styles.listItemStyle}
             >

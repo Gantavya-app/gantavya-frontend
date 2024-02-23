@@ -34,7 +34,7 @@ export default function LoginForm() {
         const user = {
           name: res.data.name,
           email: res.data.email,
-          token: res.data.token,
+          token: res.data.access,
           isAdmin: res.data.isAdmin,
           isLoggedIn: true,
         }

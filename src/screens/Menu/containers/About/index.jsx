@@ -1,9 +1,9 @@
 import React from "react"
-import { Text, View, Image, StyleSheet } from "react-native"
+import { Text, ScrollView, Image, StyleSheet } from "react-native"
 
 const AboutScreen = () => {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>About Us</Text>
 
       <Text style={styles.description}>
@@ -63,7 +63,7 @@ const AboutScreen = () => {
         <Text style={styles.developerName}>Samir Gurung</Text>
         <Text style={styles.developerRole}>Data Collection Specialist</Text>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

@@ -1,38 +1,75 @@
-import React, { useState, useContext } from "react"
-import { Text, ScrollView, View } from "react-native"
+import React, { useState, useContext, useEffect } from "react"
+import { Text, ScrollView, View, Image } from "react-native"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import ImagePicker from "./components/ImagePicker"
 import colors from "../../utils/constants/colors"
 import { axiosInstance } from "../../utils/config/api"
 import { AuthContext } from "../../contexts/AuthContext"
 
-export default function IdentifyScreen() {
+export default function IdentifyScreen({ navigation, route }) {
   const [image, setImage] = useState(null)
   const [imagePreview, setImagePreview] = useState(null)
   const [message, setMessage] = useState({
     type: "",
     content: "",
   })
+  const [loading, setLoading] = useState(false)
+
   const { user } = useContext(AuthContext)
 
   async function handleUploadImage() {
+    setLoading(true)
+
     const requestBody = {
-      image: photo.base64,
+      image: image.base64,
     }
 
-    const response = await axiosInstance.post(
-      "/landmark/prediction/",
-      requestBody,
-      {
+    axiosInstance
+      .post("/landmark/prediction/", requestBody, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
-      }
-    )
+      })
+      .then((response) => {
+        console.log(response)
 
-    console.log(response)
-    return response
+        navigation.navigate("Predicting", {
+          data: response.data,
+        })
+      })
+      .catch((error) => {
+        if (error?.response?.status === 401) {
+          setMessage({
+            type: "error",
+            content: "You are not authorized to perform this action",
+          })
+        }
+        if (error?.response?.status === 400) {
+          setMessage({
+            type: "error",
+            content: "Invalid image format",
+          })
+        }
+        if (error?.response?.status === 500) {
+          setMessage({
+            type: "error",
+            content: "Internal server error",
+          })
+        }
+        console.error(error)
+      })
+      .finally(() => {
+        setImage(null)
+        setImagePreview(null)
+        setLoading(false)
+      })
   }
+
+  useEffect(() => {
+    if (image) {
+      handleUploadImage()
+    }
+  }, [image])
 
   return (
     <UserLayout>
@@ -57,10 +94,15 @@ export default function IdentifyScreen() {
             </Text>
           )}
 
-          <ImagePicker
-            setMessage={setMessage}
-            setImagePreview={setImagePreview}
-          />
+          {loading ? (
+            <Text> Loading...</Text>
+          ) : (
+            <ImagePicker
+              setMessage={setMessage}
+              setImage={setImage}
+              setImagePreview={setImagePreview}
+            />
+          )}
         </View>
       </ScrollView>
     </UserLayout>

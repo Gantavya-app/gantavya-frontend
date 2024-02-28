@@ -11,6 +11,7 @@ import {
   PrivacyScreen,
   ProfileScreen,
   RegisterScreen,
+  ResultScreen,
 } from "../screens"
 
 const Stack = createNativeStackNavigator()
@@ -44,6 +45,10 @@ export default function RootNavigator() {
             <Stack.Screen name="Contact" component={ContactScreen} />
             <Stack.Screen name="Privacy" component={PrivacyScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
+
+            <Stack.Group>
+              <Stack.Screen name="Result" component={ResultScreen} />
+            </Stack.Group>
           </Stack.Group>
         ) : (
           <Stack.Group>

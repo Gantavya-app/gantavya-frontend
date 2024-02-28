@@ -15,7 +15,9 @@ import HelpScreen from "./Menu/containers/Help"
 import PrivacyScreen from "./Menu/containers/Privacy"
 import ProfileScreen from "./Menu/containers/Profile"
 import ReportScreen from "./Menu/containers/Report"
-import SettingsScreen from "./Menu/containers/SettingsScreen"
+import SettingsScreen from "./Menu/containers/Settings"
+
+import ResultScreen from "./Identify/containers/Result"
 
 export {
   HomeScreen,
@@ -34,4 +36,5 @@ export {
   ReportScreen,
   SettingsScreen,
   HelpScreen,
+  ResultScreen,
 }

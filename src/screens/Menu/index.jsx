@@ -10,6 +10,11 @@ import AccountScreen from "./containers/Account"
 import PrivacyScreen from "./containers/Privacy"
 import AboutScreen from "./containers/About"
 
+import { Ionicons } from "@expo/vector-icons"
+import { FontAwesome5 } from "@expo/vector-icons"
+import { AntDesign } from "@expo/vector-icons"
+import colors from "../../utils/constants/colors"
+
 export default function MenuScreen({ navigation }) {
   const { logOut } = useContext(AuthContext)
 
@@ -35,13 +40,13 @@ export default function MenuScreen({ navigation }) {
 
   const menuOptions = [
     {
-      icon: "person",
+      icon: <Ionicons name="person-outline" size={20} />,
       text: "Profile Settings",
       name: "Profile",
       action: navigateToProfile,
     },
     {
-      icon: "lock",
+      icon: <AntDesign name="lock" size={22} />,
       text: "Account Settings",
       name: "Account",
       action: navigateToAccountSettings,
@@ -49,19 +54,21 @@ export default function MenuScreen({ navigation }) {
     // { icon: "moon", text: "Dark Mode",component:  },
     // { icon: "lightbulb", text: "Light Mode",component:  },
     {
-      icon: "shield",
+      icon: (
+        <Ionicons name="shield-checkmark-outline" size={20} color="black" />
+      ),
       text: "Privacy Policy",
       name: "Privacy",
       action: navigateToPrivacyPolicy,
     },
     {
-      icon: "information-circle",
+      icon: <Ionicons name="information-circle-outline" size={22} />,
       text: "About Us",
       name: "About",
       action: navigateToAbout,
     },
     {
-      icon: "call",
+      icon: <Ionicons name="call-outline" size={20} color="black" />,
       text: "Contact Us",
       name: "Contact",
       action: navigateToContact,
@@ -78,7 +85,12 @@ export default function MenuScreen({ navigation }) {
               key={index}
               style={styles.listItemStyle}
             >
-              <Text>{option.text}</Text>
+              <View
+                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+              >
+                {option?.icon && option?.icon}
+                <Text>{option.text}</Text>
+              </View>
             </Pressable>
           )
         })}
@@ -86,7 +98,10 @@ export default function MenuScreen({ navigation }) {
 
       <View>
         <Pressable onPress={logOut} style={styles.listItemStyle}>
-          <Text style={{ color: "rgb(255,60,50)" }}>Log Out</Text>
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <AntDesign name="logout" size={20} color="red" />
+            <Text style={{ color: colors.error }}>Log Out</Text>
+          </View>
         </Pressable>
       </View>
     </UserLayout>
@@ -95,7 +110,7 @@ export default function MenuScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   listItemStyle: {
-    borderTopWidth: 1,
+    // borderTopWidth: 1,
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderColor: "lightgray",

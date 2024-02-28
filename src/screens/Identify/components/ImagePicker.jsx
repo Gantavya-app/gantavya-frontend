@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useContext } from "react"
-import { Button, Image, View, Platform } from "react-native"
+import React from "react"
+import Button from "../../../components/common/Button"
+import { View } from "react-native"
 import * as ExpoImagePicker from "expo-image-picker"
-import { axiosInstance } from "../../../utils/config/api"
-import { AuthContext } from "../../../contexts/AuthContext"
+import { Ionicons } from "@expo/vector-icons"
+import colors from "../../../utils/constants/colors"
 
-export default function ImagePicker() {
-  const { user } = useContext(AuthContext)
-
-  const [imagePreview, setImagePreview] = useState(null)
-
+export default function ImagePicker({ setMessage, setImagePreview }) {
   const pickImage = async () => {
     let result = await ExpoImagePicker.launchImageLibraryAsync({
       mediaTypes: ExpoImagePicker.MediaTypeOptions.Images,
@@ -18,6 +15,7 @@ export default function ImagePicker() {
     })
 
     if (result.canceled) {
+      setMessage({ type: "error", content: "Image selection cancelled" })
       return
     }
 
@@ -25,34 +23,15 @@ export default function ImagePicker() {
     let localUri = photo.uri
     // let filename = localUri?.split("/").pop()
     setImagePreview(localUri)
-
-    const requestBody = {
-      image: photo.base64,
-    }
-
-    const response = await axiosInstance.post(
-      "/landmark/prediction/",
-      requestBody,
-      {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      }
-    )
-
-    console.log(response)
-    return response
   }
 
   return (
     <View style={{ alignItems: "center", justifyContent: "center" }}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-      {imagePreview && (
-        <Image
-          source={{ uri: imagePreview }}
-          style={{ width: 200, height: 200 }}
-        />
-      )}
+      <Button
+        title="Choose from Gallery"
+        onPress={pickImage}
+        icon={<Ionicons name="image-outline" size={20} color={colors.white} />}
+      />
     </View>
   )
 }

@@ -19,4 +19,9 @@ export default colors = {
   lightGreen: "#E8F5E9",
   lightYellow: "#FFF3E0",
   lightOrange: "#FFF3E0",
+  darkBlue: "#1976D2",
+  darkRed: "#D32F2F",
+  darkGreen: "#388E3C",
+  darkYellow: "#FFA000",
+  darkOrange: "#FF6D00",
 }

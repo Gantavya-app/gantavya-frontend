@@ -28,11 +28,7 @@ export default function RootNavigator() {
         }}
       >
         {isLoggedIn ? (
-          <Stack.Group
-            screenOptions={{
-              headerShown: true,
-            }}
-          >
+          <Stack.Group>
             <Stack.Screen
               name="LoggedInScreen"
               component={BottomTabNavigator}

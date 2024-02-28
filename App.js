@@ -6,13 +6,13 @@ import { RootSiblingParent } from "react-native-root-siblings"
 
 export default function App() {
   return (
-    <AppProvider>
-      <RootSiblingParent>
-        <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <AppProvider>
+        <RootSiblingParent>
           <StatusBar style="auto" />
           <RootNavigator />
-        </SafeAreaView>
-      </RootSiblingParent>
-    </AppProvider>
+        </RootSiblingParent>
+      </AppProvider>
+    </SafeAreaView>
   )
 }

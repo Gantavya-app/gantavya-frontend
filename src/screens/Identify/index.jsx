@@ -19,6 +19,10 @@ export default function IdentifyScreen({ navigation, route }) {
 
   async function handleUploadImage() {
     setLoading(true)
+    setMessage({
+      type: "",
+      content: "",
+    })
 
     const requestBody = {
       image: image.base64,
@@ -47,7 +51,7 @@ export default function IdentifyScreen({ navigation, route }) {
         if (error?.response?.status === 400) {
           setMessage({
             type: "error",
-            content: "Invalid image format",
+            content: error?.response?.data?.detail || "Invalid image format",
           })
         }
         if (error?.response?.status === 500) {

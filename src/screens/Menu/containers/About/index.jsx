@@ -1,9 +1,12 @@
 import React from "react"
-import { Text, ScrollView, Image, StyleSheet } from "react-native"
+import { Text, ScrollView, Image, StyleSheet, View } from "react-native"
 
 const AboutScreen = () => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ paddingBottom: 16 }}
+    >
       <Text style={styles.title}>About Us</Text>
 
       <Text style={styles.description}>
@@ -30,11 +33,13 @@ const AboutScreen = () => {
 
       <View style={styles.developerContainer}>
         <Image
-          source={require("../../../../assets/images/sandesh_gc.jpeg")}
+          source={require("../../../../assets/images/rupesh_ghimire.jpeg")}
           style={styles.developerImage}
         />
-        <Text style={styles.developerName}>Rupesh Ghimire</Text>
-        <Text style={styles.developerRole}>Backend Developer</Text>
+        <View>
+          <Text style={styles.developerName}>Rupesh Ghimire</Text>
+          <Text style={styles.developerRole}>Backend Developer (Django)</Text>
+        </View>
       </View>
 
       <View style={styles.developerContainer}>
@@ -42,26 +47,36 @@ const AboutScreen = () => {
           source={require("../../../../assets/images/sandesh_gc.jpeg")}
           style={styles.developerImage}
         />
-        <Text style={styles.developerName}>Rupesh Ghimire</Text>
-        <Text style={styles.developerRole}>Backend Developer</Text>
+        <View>
+          <Text style={styles.developerName}>Sandesh G.C.</Text>
+          <Text style={styles.developerRole}>
+            Frontend Developer (React Native)
+          </Text>
+        </View>
       </View>
 
       <View style={styles.developerContainer}>
         <Image
-          source={require("../../../../assets/images/sandesh_gc.jpeg")}
+          source={{
+            uri: "https://placehold.co/400",
+          }}
           style={styles.developerImage}
         />
-        <Text style={styles.developerName}>Subek Sharma</Text>
-        <Text style={styles.developerRole}>Machine Learning Specialist</Text>
+        <View>
+          <Text style={styles.developerName}>Samir Gurung</Text>
+          <Text style={styles.developerRole}>Data Collection Specialist</Text>
+        </View>
       </View>
 
       <View style={styles.developerContainer}>
         <Image
-          source={require("../../../../assets/images/sandesh_gc.jpeg")}
+          source={require("../../../../assets/images/subek_sharma.jpeg")}
           style={styles.developerImage}
         />
-        <Text style={styles.developerName}>Samir Gurung</Text>
-        <Text style={styles.developerRole}>Data Collection Specialist</Text>
+        <View>
+          <Text style={styles.developerName}>Subek Sharma</Text>
+          <Text style={styles.developerRole}>Machine Learning Specialist</Text>
+        </View>
       </View>
     </ScrollView>
   )
@@ -103,7 +118,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   developerRole: {
-    fontSize: 16,
+    fontSize: 12,
     color: "#888",
   },
 })

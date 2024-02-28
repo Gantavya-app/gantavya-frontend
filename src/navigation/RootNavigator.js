@@ -40,11 +40,14 @@ export default function RootNavigator() {
                 headerShown: false,
               }}
             />
-            <Stack.Screen name="About" component={AboutScreen} />
-            <Stack.Screen name="Account" component={AccountScreen} />
-            <Stack.Screen name="Contact" component={ContactScreen} />
-            <Stack.Screen name="Privacy" component={PrivacyScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
+
+            <Stack.Group>
+              <Stack.Screen name="About" component={AboutScreen} />
+              <Stack.Screen name="Account" component={AccountScreen} />
+              <Stack.Screen name="Contact" component={ContactScreen} />
+              <Stack.Screen name="Privacy" component={PrivacyScreen} />
+              <Stack.Screen name="Profile" component={ProfileScreen} />
+            </Stack.Group>
 
             <Stack.Group>
               <Stack.Screen name="Result" component={ResultScreen} />

@@ -28,10 +28,17 @@ export default function RootNavigator() {
         }}
       >
         {isLoggedIn ? (
-          <Stack.Group>
+          <Stack.Group
+            screenOptions={{
+              headerShown: true,
+            }}
+          >
             <Stack.Screen
               name="LoggedInScreen"
               component={BottomTabNavigator}
+              options={{
+                headerShown: false,
+              }}
             />
 
             <Stack.Group>
@@ -42,11 +49,7 @@ export default function RootNavigator() {
               <Stack.Screen name="Profile" component={ProfileScreen} />
             </Stack.Group>
 
-            <Stack.Group
-              screenOptions={{
-                headerShown: true,
-              }}
-            >
+            <Stack.Group>
               <Stack.Screen name="PredictionResult" component={ResultScreen} />
             </Stack.Group>
           </Stack.Group>

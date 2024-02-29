@@ -1,5 +1,11 @@
 import React, { useContext, useState } from "react"
-import { Text, TextInput, TouchableOpacity, View } from "react-native"
+import {
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native"
 import { AuthContext } from "../../../../contexts/AuthContext"
 
 const ProfileScreen = ({ navigation }) => {
@@ -11,58 +17,58 @@ const ProfileScreen = ({ navigation }) => {
   console.warn(user)
 
   return (
-    <View>
-      {!editMode ? (
-        <View>
-          <Text>{user?.name}</Text>
-        </View>
-      ) : (
-        <View>
-          <TextInput
-            value={userEditing?.name}
-            onChangeText={(text) =>
-              setUserEditing({
-                ...userEditing,
-                name: text,
-              })
-            }
-          />
-        </View>
-      )}
-      {!editMode ? (
-        <View>
-          <Text>{user?.email}</Text>
-        </View>
-      ) : (
-        <View>
-          <TextInput
-            value={userEditing?.email}
-            onChangeText={(text) =>
-              setUserEditing({
-                ...userEditing,
-                email: text,
-              })
-            }
-          />
-        </View>
-      )}
-
-      {!editMode ? (
-        <TouchableOpacity onPress={() => setEditMode(true)}>
-          <Text>Edit Profile</Text>
-        </TouchableOpacity>
-      ) : (
-        <View>
-          <TouchableOpacity onPress={() => setEditMode(false)}>
-            <Text>Save Profile</Text>
+    <ScrollView>
+      <View>
+        {!editMode ? (
+          <View>
+            <Text>{user?.name}</Text>
+          </View>
+        ) : (
+          <View>
+            <TextInput
+              value={userEditing?.name}
+              onChangeText={(text) =>
+                setUserEditing({
+                  ...userEditing,
+                  name: text,
+                })
+              }
+            />
+          </View>
+        )}
+        {!editMode ? (
+          <View>
+            <Text>{user?.email}</Text>
+          </View>
+        ) : (
+          <View>
+            <TextInput
+              value={userEditing?.email}
+              onChangeText={(text) =>
+                setUserEditing({
+                  ...userEditing,
+                  email: text,
+                })
+              }
+            />
+          </View>
+        )}
+        {!editMode ? (
+          <TouchableOpacity onPress={() => setEditMode(true)}>
+            <Text>Edit Profile</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => setEditMode(false)}>
-            <Text>Cancel</Text>
-          </TouchableOpacity>
-        </View>
-      )}
-    </View>
+        ) : (
+          <View>
+            <TouchableOpacity onPress={() => setEditMode(false)}>
+              <Text>Save Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setEditMode(false)}>
+              <Text>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+    </ScrollView>
   )
 }
 

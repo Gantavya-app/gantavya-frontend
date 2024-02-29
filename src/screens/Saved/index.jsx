@@ -13,13 +13,13 @@ export default function SavedScreen() {
     setLoading(true)
 
     axiosInstance
-      .get("/saved/", {
+      .get("/landmark/saved/", {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
       })
       .then((response) => {
-        console.log(response)
+        console.log(response.data)
         setSaved(response.data)
       })
       .catch((error) => {

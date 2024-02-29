@@ -5,7 +5,7 @@ export default colors = {
   accent: "#FF6C44",
   grey: "#BDBDBD",
   lightGrey: "#F2F2F2",
-  darkGrey: "#828282",
+  darkGrey: "#777",
   error: "rgb(255,60,50)",
   // error: "#EB5757",
   success: "#27AE60",

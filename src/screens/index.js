@@ -18,7 +18,7 @@ import ReportScreen from "./Menu/containers/Report"
 import SettingsScreen from "./Menu/containers/Settings"
 
 import LandmarkScreen from "./Landmark"
-import ResultScreen from "./Identify/containers/Result"
+import ResultScreen from "./Result"
 
 export {
   HomeScreen,

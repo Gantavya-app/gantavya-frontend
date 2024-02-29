@@ -11,15 +11,14 @@ const Chip = ({ text }) => {
 
 const styles = StyleSheet.create({
   chipTextStyle: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: "bold",
-    marginTop: 4,
     backgroundColor: colors.darkBlue,
     color: colors.white,
     alignSelf: "flex-start",
     borderRadius: 100,
-    paddingHorizontal: 12,
-    paddingVertical: 3,
+    paddingHorizontal: 16,
+    paddingVertical: 5,
   },
 })
 

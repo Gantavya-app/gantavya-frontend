@@ -5,8 +5,6 @@ import LandmarkDetails from "../../components/LandmarkDetails"
 const LandmarkScreen = ({ navigation, route }) => {
   const { data } = route.params
 
-  console.log(" data in landmakr details", data)
-
   return (
     <ScrollView contentContainerStyle={{ padding: 16 }}>
       <LandmarkDetails landmark={data} photos={data.photos} />

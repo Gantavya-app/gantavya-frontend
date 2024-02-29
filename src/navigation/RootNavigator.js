@@ -51,7 +51,13 @@ export default function RootNavigator() {
             </Stack.Group>
 
             <Stack.Group>
-              <Stack.Screen name="LandmarkDetails" component={LandmarkScreen} />
+              <Stack.Screen
+                name="LandmarkDetails"
+                component={LandmarkScreen}
+                options={{
+                  headerTitle: "Landmark Details",
+                }}
+              />
               <Stack.Screen name="PredictionResult" component={ResultScreen} />
             </Stack.Group>
           </Stack.Group>

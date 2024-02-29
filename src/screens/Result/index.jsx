@@ -1,14 +1,7 @@
 import React from "react"
-import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native"
+import { SafeAreaView, ScrollView, Text, View } from "react-native"
 import ProgressBar from "react-native-progress/Bar"
-import LandmarkDetails from "../../../../components/LandmarkDetails"
+import LandmarkDetails from "../../components/LandmarkDetails"
 
 const ResultScreen = ({ route }) => {
   const { data } = route.params
@@ -16,10 +9,7 @@ const ResultScreen = ({ route }) => {
 
   return (
     <SafeAreaView>
-      <ScrollView
-        style={{ padding: 16 }}
-        contentContainerStyle={{ paddingBottom: 16 }}
-      >
+      <ScrollView contentContainerStyle={{ padding: 16 }}>
         <View>
           <Text style={{ fontSize: 20, marginVertical: 4 }}>
             Prediction Results:

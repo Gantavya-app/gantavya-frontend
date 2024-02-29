@@ -1,19 +1,67 @@
 import React from "react"
-import { ScrollView, View, Text, Image, StyleSheet } from "react-native"
+import {
+  ScrollView,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Pressable,
+} from "react-native"
+import Chip from "../components/common/Chip"
+import GText from "./common/GText"
+import colors from "../utils/constants/colors"
+import { Ionicons } from "@expo/vector-icons"
+import { AxiosInstance } from "axios"
 
 const LandmarkDetails = ({ landmark, photos }) => {
+  function handleSave() {
+    let is_saved = landmark?.isSaved
+
+    if (landmark?.isSaved) {
+      console.log("Unsave")
+
+      // axiosInstance.post("/landmarks/unsave", {
+      //   landmark_id: landmark?.id,
+      // })
+
+      return
+    }
+
+    console.log("Save")
+  }
+
   return (
     <ScrollView>
       <View>
         <Text style={styles.landmarkName}>{landmark?.name}</Text>
-        <Text>{landmark?.type}</Text>
-        <Text>{landmark?.latitude}</Text>
-        <Text>{landmark?.longitude}</Text>
+        <View style={{ flexDirection: "row", gap: 4 }}>
+          <Chip text={landmark?.type} />
+        </View>
+
+        <View
+          style={{
+            marginVertical: 4,
+            flexDirection: "row",
+            gap: 4,
+            alignItems: "center",
+          }}
+        >
+          <Pressable onPress={handleSave}>
+            <Ionicons name="bookmark-outline" size={24} color="black" />
+          </Pressable>
+          <Ionicons name="share-outline" size={24} color="black" />
+        </View>
+
+        <GText style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
+          Location:
+        </GText>
+        <Text style={{ color: colors.darkGrey }}>{landmark?.latitude}</Text>
+        <Text style={{ color: colors.darkGrey }}>{landmark?.longitude}</Text>
 
         <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
           Address:
         </Text>
-        <Text>{landmark?.address}</Text>
+        <Text style={{ color: colors.darkGrey }}>{landmark?.address}</Text>
 
         <ScrollView horizontal>
           {!photos?.length ? (
@@ -42,15 +90,15 @@ const LandmarkDetails = ({ landmark, photos }) => {
           )}
         </ScrollView>
 
-        <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
+        <GText style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
           Landmark Details:
-        </Text>
-        <Text>{landmark?.description}</Text>
+        </GText>
+        <Text style={{ color: colors.darkGrey }}>{landmark?.description}</Text>
 
         <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
           Facts:
         </Text>
-        <Text>{landmark?.facts}</Text>
+        <Text style={{ color: colors.darkGrey }}>{landmark?.facts}</Text>
       </View>
     </ScrollView>
   )
@@ -58,9 +106,9 @@ const LandmarkDetails = ({ landmark, photos }) => {
 
 const styles = StyleSheet.create({
   landmarkName: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    marginVertical: 8,
+    marginBottom: 8,
   },
 })
 

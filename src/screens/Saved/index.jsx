@@ -1,17 +1,23 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { View, Text, ScrollView } from "react-native"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import { axiosInstance } from "../../utils/config/api"
+import { AuthContext } from "../../contexts/AuthContext"
 
 export default function SavedScreen() {
   const [saved, setSaved] = useState([])
   const [loading, setLoading] = useState(true)
+  const { user } = useContext(AuthContext)
 
   useEffect(() => {
     setLoading(true)
 
     axiosInstance
-      .get("/saved/")
+      .get("/saved/", {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
       .then((response) => {
         console.log(response)
         setSaved(response.data)

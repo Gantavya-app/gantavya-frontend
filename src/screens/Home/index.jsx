@@ -1,20 +1,10 @@
 import React, { useContext, useEffect, useState } from "react"
-import {
-  FlatList,
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native"
+import { ScrollView, StyleSheet } from "react-native"
 import { axiosInstance } from "../../utils/config/api"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import { AuthContext } from "../../contexts/AuthContext"
-import colors from "../../utils/constants/colors"
-import Chip from "../../components/common/Chip"
-import FeaturedLandmarks from "./components/FeaturedLandmarks"
-import GreetingCard from "./components/GreetingCard"
+import FeaturedLandmarks from "./containers/FeaturedLandmarks"
+import GreetingCard from "./containers/GreetingCard"
 
 export default function HomeScreen() {
   const [greeting, setGreeting] = useState("")

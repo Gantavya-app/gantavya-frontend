@@ -1,10 +1,19 @@
 import React from "react"
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native"
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native"
 import ProgressBar from "react-native-progress/Bar"
 
 const ResultScreen = ({ route }) => {
   const { data } = route.params
   const { landmark, confidence_score, photos } = data
+
+  console.log(data)
 
   return (
     <SafeAreaView>
@@ -24,13 +33,28 @@ const ResultScreen = ({ route }) => {
         </View>
 
         <ScrollView horizontal>
-          {photos.map((photo, index) => (
-            <Image
-              key={index}
-              source={{ uri: photo }}
-              style={{ width: 200, height: 200 }}
-            />
-          ))}
+          {!photos?.length ? (
+            <Text>No photos available.</Text>
+          ) : (
+            photos?.map((photo, index) => (
+              <>
+                {console.log(photo.photo_url)}
+                <Image
+                  key={index}
+                  source={{
+                    uri: photo.photo_url || "https://via.placeholder.com/200",
+                  }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    marginRight: 10,
+                    borderRadius: 12,
+                    marginVertical: 8,
+                  }}
+                />
+              </>
+            ))
+          )}
         </ScrollView>
 
         <View>

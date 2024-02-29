@@ -17,6 +17,7 @@ import ProfileScreen from "./Menu/containers/Profile"
 import ReportScreen from "./Menu/containers/Report"
 import SettingsScreen from "./Menu/containers/Settings"
 
+import LandmarkScreen from "./Landmark"
 import ResultScreen from "./Identify/containers/Result"
 
 export {
@@ -31,10 +32,11 @@ export {
   AccountScreen,
   ContactScreen,
   FeedbackScreen,
+  HelpScreen,
+  LandmarkScreen,
   PrivacyScreen,
   ProfileScreen,
+  ResultScreen,
   ReportScreen,
   SettingsScreen,
-  HelpScreen,
-  ResultScreen,
 }

@@ -8,12 +8,11 @@ import {
   View,
 } from "react-native"
 import ProgressBar from "react-native-progress/Bar"
+import LandmarkDetails from "../../../../components/LandmarkDetails"
 
 const ResultScreen = ({ route }) => {
   const { data } = route.params
   const { landmark, confidence_score, photos } = data
-
-  console.log(data)
 
   return (
     <SafeAreaView>
@@ -32,63 +31,10 @@ const ResultScreen = ({ route }) => {
           <ProgressBar progress={confidence_score} />
         </View>
 
-        <ScrollView horizontal>
-          {!photos?.length ? (
-            <Text>No photos available.</Text>
-          ) : (
-            photos?.map((photo, index) => (
-              <>
-                {console.log(photo.photo_url)}
-                <Image
-                  key={index}
-                  source={{
-                    uri: photo.photo_url || "https://via.placeholder.com/200",
-                  }}
-                  style={{
-                    width: 200,
-                    height: 200,
-                    marginRight: 10,
-                    borderRadius: 12,
-                    marginVertical: 8,
-                  }}
-                />
-              </>
-            ))
-          )}
-        </ScrollView>
-
-        <View>
-          <Text style={styles.landmarkName}>{landmark?.name}</Text>
-          <Text>{landmark?.type}</Text>
-          <Text>{landmark?.latitude}</Text>
-          <Text>{landmark?.longitude}</Text>
-
-          <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
-            Address:
-          </Text>
-          <Text>{landmark?.address}</Text>
-
-          <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
-            Landmark Details:
-          </Text>
-          <Text>{landmark?.description}</Text>
-
-          <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
-            Facts:
-          </Text>
-          <Text>{landmark?.facts}</Text>
-        </View>
+        <LandmarkDetails landmark={landmark} photos={photos} />
       </ScrollView>
     </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  landmarkName: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginVertical: 8,
-  },
-})
 
 export default ResultScreen

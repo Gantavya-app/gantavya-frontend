@@ -9,8 +9,11 @@ import {
   View,
 } from "react-native"
 import Chip from "../../../components/common/Chip"
+import { useNavigation } from "@react-navigation/native"
 
 const FeaturedLandmarks = ({ landmarks }) => {
+  const navigation = useNavigation()
+
   return (
     <View style={styles.landmarksContainer}>
       <View
@@ -33,28 +36,34 @@ const FeaturedLandmarks = ({ landmarks }) => {
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.landmarkCard}>
-            {console.log(item.photos[0])}
-
-            <Image
-              source={{
-                uri: item?.photos?.length
-                  ? item?.photos[0]
-                  : "https://via.placeholder.com/150",
-              }}
-              style={{
-                width: "100%",
-                height: 150,
-                borderRadius: 5,
-                objectFit: "cover",
-                marginBottom: 8,
-              }}
-            />
-            <View>
-              <Text style={styles.landmarkName}>{item.name}</Text>
-              <Chip text={item?.type} />
+          <Pressable
+            onPress={() =>
+              navigation.navigate("LandmarkDetails", {
+                data: item,
+              })
+            }
+          >
+            <View style={styles.landmarkCard}>
+              <Image
+                source={{
+                  uri: item?.photos?.length
+                    ? item?.photos[0]
+                    : "https://via.placeholder.com/150",
+                }}
+                style={{
+                  width: "100%",
+                  height: 150,
+                  borderRadius: 5,
+                  objectFit: "cover",
+                  marginBottom: 8,
+                }}
+              />
+              <View>
+                <Text style={styles.landmarkName}>{item.name}</Text>
+                <Chip text={item?.type} />
+              </View>
             </View>
-          </View>
+          </Pressable>
         )}
       />
     </View>

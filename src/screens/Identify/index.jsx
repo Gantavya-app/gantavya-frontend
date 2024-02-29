@@ -35,10 +35,36 @@ export default function IdentifyScreen({ navigation, route }) {
         },
       })
       .then((response) => {
-        console.log(response)
+        const {
+          confidence_score,
+          landmark: {
+            id,
+            name,
+            type,
+            latitude,
+            longitude,
+            address,
+            description,
+            facts,
+          },
+          photos,
+        } = response.data
 
-        navigation.navigate("Predicting", {
-          data: response.data,
+        navigation.navigate("PredictionResult", {
+          data: {
+            confidence_score,
+            landmark: {
+              id,
+              name,
+              type,
+              latitude,
+              longitude,
+              address,
+              description,
+              facts,
+            },
+            photos,
+          },
         })
       })
       .catch((error) => {

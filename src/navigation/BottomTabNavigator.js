@@ -43,7 +43,7 @@ const navigationTabs = [
     headerTitle: "Saved",
     screen: SavedScreen,
     label: "Saved",
-    iconName: "staro",
+    iconName: "book",
   },
   {
     id: 5,

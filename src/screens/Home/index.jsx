@@ -12,6 +12,7 @@ import { axiosInstance } from "../../utils/config/api"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import { AuthContext } from "../../contexts/AuthContext"
 import colors from "../../utils/constants/colors"
+import Chip from "../../components/common/Chip"
 
 export default function HomeScreen() {
   const [greeting, setGreeting] = useState("")
@@ -32,11 +33,11 @@ export default function HomeScreen() {
         },
       })
       .then((response) => {
-        // console.log(response.data)
         setLandmarks(response.data)
       })
       .catch((error) => {
-        if (error.response.status === 401) {
+        console.log(error)
+        if (error?.response?.status === 401) {
           console.log("Unauthorized")
           logOut()
         }
@@ -111,9 +112,13 @@ export default function HomeScreen() {
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <View style={styles.landmarkCard}>
+                {console.log(item.photos[0])}
+
                 <Image
                   source={{
-                    uri: item.image || "https://via.placeholder.com/150",
+                    uri: item?.photos?.length
+                      ? item?.photos[0]
+                      : "https://via.placeholder.com/150",
                   }}
                   style={{
                     width: "100%",
@@ -125,7 +130,7 @@ export default function HomeScreen() {
                 />
                 <View>
                   <Text style={styles.landmarkName}>{item.name}</Text>
-                  <Text style={styles.landmarkType}>{item?.type}</Text>
+                  <Chip text={item?.type} />
                 </View>
               </View>
             )}
@@ -190,17 +195,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
   },
 
-  landmarkType: {
-    fontSize: 10,
-    fontWeight: "bold",
-    marginTop: 4,
-    backgroundColor: colors.darkBlue,
-    color: colors.white,
-    alignSelf: "flex-start",
-    borderRadius: 100,
-    paddingHorizontal: 12,
-    paddingVertical: 3,
-  },
   landmarkName: {
     fontSize: 14,
     fontWeight: "bold",

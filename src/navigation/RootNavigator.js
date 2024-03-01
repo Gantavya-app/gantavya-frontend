@@ -47,7 +47,13 @@ export default function RootNavigator() {
               <Stack.Screen name="About" component={AboutScreen} />
               <Stack.Screen name="Account" component={AccountScreen} />
               <Stack.Screen name="Contact" component={ContactScreen} />
-              <Stack.Screen name="Privacy" component={PrivacyScreen} />
+              <Stack.Screen
+                name="Privacy"
+                component={PrivacyScreen}
+                options={{
+                  headerTitle: "Privacy Policy",
+                }}
+              />
               <Stack.Screen name="Profile" component={ProfileScreen} />
             </Stack.Group>
 

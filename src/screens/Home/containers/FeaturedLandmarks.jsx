@@ -25,7 +25,7 @@ const FeaturedLandmarks = ({ landmarks }) => {
         }}
       >
         <Text style={styles.landmarksTitle}>Featured Landmarks</Text>
-        <Pressable>
+        <Pressable onPress={() => navigation.navigate("Explore")}>
           <Text style={{ color: colors.darkBlue }}>View All</Text>
         </Pressable>
       </View>
@@ -38,8 +38,8 @@ const FeaturedLandmarks = ({ landmarks }) => {
         renderItem={({ item }) => (
           <Pressable
             onPress={() =>
-              navigation.navigate("LandmarkDetails", {
-                data: item,
+              navigation.navigate("Landmark", {
+                landmarkId: item.id,
               })
             }
           >

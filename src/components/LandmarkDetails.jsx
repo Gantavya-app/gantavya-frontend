@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import {
   ScrollView,
   View,
@@ -11,23 +11,31 @@ import Chip from "../components/common/Chip"
 import GText from "./common/GText"
 import colors from "../utils/constants/colors"
 import { Ionicons } from "@expo/vector-icons"
-import { AxiosInstance } from "axios"
+import { axiosInstance } from "../utils/config/api"
+import { AuthContext } from "../contexts/AuthContext"
 
-const LandmarkDetails = ({ landmark, photos }) => {
+const LandmarkDetails = ({ landmark, photos, isSaved }) => {
+  const { user } = useContext(AuthContext)
+
   function handleSave() {
-    let is_saved = landmark?.isSaved
-
-    if (landmark?.isSaved) {
-      console.log("Unsave")
-
-      // axiosInstance.post("/landmarks/unsave", {
-      //   landmark_id: landmark?.id,
-      // })
-
-      return
-    }
-
-    console.log("Save")
+    axiosInstance
+      .post(
+        `/landmark/saved_by/${landmark.id}/`,
+        {
+          is_saved: !isSaved,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log("response", response.data)
+      })
+      .catch((err) => {
+        console.log("save/unsave error", err)
+      })
   }
 
   return (

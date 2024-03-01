@@ -52,7 +52,7 @@ export default function RootNavigator() {
 
             <Stack.Group>
               <Stack.Screen
-                name="LandmarkDetails"
+                name="Landmark"
                 component={LandmarkScreen}
                 options={{
                   headerTitle: "Landmark Details",

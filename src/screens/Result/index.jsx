@@ -1,11 +1,35 @@
-import React from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { SafeAreaView, ScrollView, Text, View } from "react-native"
 import ProgressBar from "react-native-progress/Bar"
 import LandmarkDetails from "../../components/LandmarkDetails"
+import { AuthContext } from "../../contexts/AuthContext"
+import { axiosInstance } from "../../utils/config/api"
 
 const ResultScreen = ({ route }) => {
-  const { data } = route.params
-  const { landmark, confidence_score, photos } = data
+  const { landmarkId, confidence_score } = route.params
+  const { user } = useContext(AuthContext)
+
+  const [landmarkDetails, setLandmarkDetails] = useState({
+    is_saved: false,
+    landmark: {},
+    photos: [],
+  })
+
+  useEffect(() => {
+    axiosInstance
+      .get(`/landmark/${landmarkId}/`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+      .then((response) => {
+        console.log("landmark ", landmarkId, response?.data)
+        setLandmarkDetails(response?.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
 
   return (
     <SafeAreaView>
@@ -21,7 +45,11 @@ const ResultScreen = ({ route }) => {
           <ProgressBar progress={confidence_score} />
         </View>
 
-        <LandmarkDetails landmark={landmark} photos={photos} />
+        <LandmarkDetails
+          isSaved={landmarkDetails?.is_saved}
+          landmark={landmarkDetails?.landmark}
+          photos={landmarkDetails?.photos}
+        />
       </ScrollView>
     </SafeAreaView>
   )

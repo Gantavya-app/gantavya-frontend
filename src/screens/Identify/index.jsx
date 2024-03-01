@@ -37,34 +37,12 @@ export default function IdentifyScreen({ navigation, route }) {
       .then((response) => {
         const {
           confidence_score,
-          landmark: {
-            id,
-            name,
-            type,
-            latitude,
-            longitude,
-            address,
-            description,
-            facts,
-          },
-          photos,
+          landmark: { id },
         } = response.data
 
         navigation.navigate("PredictionResult", {
-          data: {
-            confidence_score,
-            landmark: {
-              id,
-              name,
-              type,
-              latitude,
-              longitude,
-              address,
-              description,
-              facts,
-            },
-            photos,
-          },
+          landmarkId: id,
+          confidence_score: confidence_score,
         })
       })
       .catch((error) => {
@@ -125,7 +103,7 @@ export default function IdentifyScreen({ navigation, route }) {
           )}
 
           {loading ? (
-            <Text> Loading...</Text>
+            <Text>Loading results...</Text>
           ) : (
             <ImagePicker
               setMessage={setMessage}

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { ScrollView, StyleSheet } from "react-native"
+import { ScrollView } from "react-native"
 import { axiosInstance } from "../../utils/config/api"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import { AuthContext } from "../../contexts/AuthContext"

@@ -1,17 +1,9 @@
 import React, { useCallback, useContext, useEffect, useState } from "react"
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  RefreshControl,
-  Dimensions,
-} from "react-native"
+import { View, Text, ScrollView, RefreshControl } from "react-native"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import { axiosInstance } from "../../utils/config/api"
 import { AuthContext } from "../../contexts/AuthContext"
 import SavedLandmarkCard from "../../components/cards/SavedLandmarkCard"
-import dimensions from "../../utils/constants/dimensions"
 
 export default function SavedScreen() {
   const [saved, setSaved] = useState([])
@@ -28,7 +20,7 @@ export default function SavedScreen() {
         },
       })
       .then((response) => {
-        console.log("saved", response.data)
+        // console.log("saved", response.data)
         setSaved(response.data)
       })
       .catch((error) => {
@@ -79,9 +71,8 @@ export default function SavedScreen() {
             }}
           >
             {saved.map((item) => (
-              <View style={{ marginVertical: 8 }}>
+              <View style={{ marginVertical: 8 }} key={item?.id}>
                 <SavedLandmarkCard
-                  key={item?.id}
                   name={item?.name}
                   id={item?.id}
                   type={item?.type}

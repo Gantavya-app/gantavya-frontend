@@ -117,7 +117,6 @@ export default function MenuScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   listItemStyle: {
-    // borderTopWidth: 1,
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderColor: "lightgray",

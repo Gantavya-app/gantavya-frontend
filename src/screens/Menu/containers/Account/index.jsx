@@ -45,99 +45,107 @@ const AccountScreen = () => {
   }
 
   return (
-    <UserLayout>
+    <View>
+      <Text
+        style={{
+          fontSize: 14,
+          fontWeight: 600,
+          marginBottom: 8,
+          marginTop: 16,
+        }}
+      >
+        Change Password
+      </Text>
+
       <View>
-        <Text style={{ fontSize: 16, fontWeight: 600, marginBottom: 8 }}>
-          Change Password
-        </Text>
-
-        <View>
-          <Text style={styles.labelText}>Old Password</Text>
-          <View style={{ position: "relative", marginBottom: 12 }}>
-            <TextInput
-              onChangeText={setOldPassword}
-              secureTextEntry={!showOldPassword}
-              placeholder={"Old Password"}
-              placeholderTextColor={"gray"}
-              style={styles.passwordInputField}
+        <Text style={styles.labelText}>Old Password</Text>
+        <View style={{ position: "relative" }}>
+          <TextInput
+            onChangeText={setOldPassword}
+            secureTextEntry={!showOldPassword}
+            placeholder={"Old Password"}
+            placeholderTextColor={"gray"}
+            style={styles.passwordInputField}
+          />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.visibilityIcon}
+            onPress={handleOldPasswordVisibility}
+          >
+            <Feather
+              name={showOldPassword ? "eye-off" : "eye"}
+              size={20}
+              color="gray"
             />
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.visibilityIcon}
-              onPress={handleOldPasswordVisibility}
-            >
-              <Feather
-                name={showOldPassword ? "eye-off" : "eye"}
-                size={20}
-                color="gray"
-              />
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         </View>
-        <View>
-          <Text style={styles.labelText}>New Password</Text>
-          <View style={{ position: "relative", marginBottom: 12 }}>
-            <TextInput
-              onChangeText={setNewPassword}
-              secureTextEntry={!showNewPassword}
-              placeholder={"New Password"}
-              placeholderTextColor={"gray"}
-              style={styles.passwordInputField}
-            />
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={styles.visibilityIcon}
-              onPress={handleNewPasswordVisibility}
-            >
-              <Feather
-                name={showNewPassword ? "eye-off" : "eye"}
-                size={20}
-                color="gray"
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-        <Button title={"Change Password"} onPress={handleChangePassword} />
-
-        <Text
-          style={{
-            fontSize: 16,
-            fontWeight: 600,
-            marginBottom: 8,
-            marginTop: 24,
-          }}
-        >
-          Account Management
-        </Text>
-        <Button
-          onPress={handleDeleteAccount}
-          title={"Delete Account"}
-          style={{ backgroundColor: colors.error }}
-        />
-        <Text
-          style={{
-            fontSize: 12,
-            fontStyle: "italic",
-            color: colors.warning,
-            fontWeight: 600,
-            marginBottom: 4,
-          }}
-        >
-          Warning: The delete action is irreversible. Proceed with caution.
-        </Text>
       </View>
-    </UserLayout>
+      <View>
+        <Text style={styles.labelText}>New Password</Text>
+        <View style={{ position: "relative", marginBottom: 12 }}>
+          <TextInput
+            onChangeText={setNewPassword}
+            secureTextEntry={!showNewPassword}
+            placeholder={"New Password"}
+            placeholderTextColor={"gray"}
+            style={styles.passwordInputField}
+          />
+          <TouchableOpacity
+            activeOpacity={0.8}
+            style={styles.visibilityIcon}
+            onPress={handleNewPasswordVisibility}
+          >
+            <Feather
+              name={showNewPassword ? "eye-off" : "eye"}
+              size={20}
+              color="gray"
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <Button title={"Change Password"} onPress={handleChangePassword} />
+
+      <Text
+        style={{
+          fontSize: 14,
+          fontWeight: 600,
+          marginBottom: 8,
+          marginTop: 24,
+        }}
+      >
+        Account Management
+      </Text>
+      <Button
+        onPress={handleDeleteAccount}
+        title={"Delete Account"}
+        style={{ backgroundColor: colors.error }}
+      />
+      <Text
+        style={{
+          fontSize: 12,
+          fontStyle: "italic",
+          color: colors.warning,
+          fontWeight: 600,
+          marginBottom: 4,
+        }}
+      >
+        Warning: The delete action is irreversible. Proceed with caution.
+      </Text>
+    </View>
   )
 }
 
 const styles = {
   passwordInputField: {
-    width: "100%",
-    padding: 10,
     borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 5,
+    borderRadius: 4,
+    borderColor: colors.darkGrey,
+    paddingVertical: 6,
+    paddingHorizontal: 10,
     paddingRight: 40,
+
+    marginBottom: 16,
+    marginTop: 0,
   },
 
   visibilityIcon: {
@@ -148,6 +156,7 @@ const styles = {
 
   labelText: {
     fontSize: 12,
+    color: colors.darkGrey,
   },
 }
 

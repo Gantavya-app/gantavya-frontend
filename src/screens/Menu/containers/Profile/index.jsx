@@ -12,6 +12,7 @@ import { Ionicons } from "@expo/vector-icons"
 import colors from "../../../../utils/constants/colors"
 import { axiosInstance } from "../../../../utils/config/api"
 import UserLayout from "../../../../utils/Layouts/UserLayout"
+import AccountScreen from "../Account"
 
 const ProfileScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext)
@@ -40,7 +41,7 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <UserLayout>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={{ alignItems: "center" }}>
             <Ionicons
@@ -106,6 +107,16 @@ const ProfileScreen = ({ navigation }) => {
           )}
           {editMode && (
             <>
+              <Text
+                style={{
+                  fontSize: 14,
+                  fontWeight: 600,
+                  marginBottom: 8,
+                  marginTop: 16,
+                }}
+              >
+                Edit Profile
+              </Text>
               <View>
                 <Text style={styles.inputLabel}>Full name</Text>
                 <TextInput
@@ -137,6 +148,8 @@ const ProfileScreen = ({ navigation }) => {
             </>
           )}
         </View>
+
+        <AccountScreen />
       </ScrollView>
     </UserLayout>
   )
@@ -145,7 +158,6 @@ const ProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   inputLabel: {
     color: colors.darkGrey,
-    marginHorizontal: 10,
     fontSize: 12,
   },
   textInput: {
@@ -154,8 +166,7 @@ const styles = StyleSheet.create({
     borderColor: colors.darkGrey,
     paddingVertical: 6,
     paddingHorizontal: 10,
-    margin: 10,
-    marginBottom: 16,
+    marginBottom: 10,
     marginTop: 0,
   },
 })

@@ -14,7 +14,6 @@ import {
   RegisterScreen,
   ResultScreen,
 } from "../screens"
-import colors from "../utils/constants/colors"
 
 const Stack = createNativeStackNavigator()
 

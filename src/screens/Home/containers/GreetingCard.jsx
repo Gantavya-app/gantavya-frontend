@@ -1,8 +1,57 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { View, Text, StyleSheet } from "react-native"
 import colors from "../../../utils/constants/colors"
 
-const GreetingCard = ({ greeting, time }) => {
+const GreetingCard = () => {
+  const [greeting, setGreeting] = useState("")
+  const [time, setTime] = useState(
+    new Date().toLocaleTimeString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+    })
+  )
+
+  useEffect(() => {
+    const timeInterval = setInterval(() => {
+      setTime(
+        new Date().toLocaleTimeString(undefined, {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      )
+    }, 1000)
+
+    const currentHour = new Date().getHours()
+    if (currentHour < 12) {
+      setGreeting("Good morning!")
+    } else if (currentHour < 18) {
+      setGreeting("Good afternoon!")
+    } else {
+      setGreeting("Good evening!")
+    }
+
+    return () => {
+      clearInterval(timeInterval)
+    }
+  }, [])
+
+  useEffect(() => {
+    const greetingInterval = setInterval(() => {
+      const currentHour = new Date().getHours()
+      if (currentHour < 12) {
+        setGreeting("Good morning!")
+      } else if (currentHour < 18) {
+        setGreeting("Good afternoon!")
+      } else {
+        setGreeting("Good evening!")
+      }
+    }, 60000)
+
+    return () => {
+      clearInterval(greetingInterval)
+    }
+  }, [time])
+
   return (
     <View style={styles.greetingCard}>
       <Text style={styles.greeting}>{greeting}</Text>

@@ -5,16 +5,11 @@ import UserLayout from "../../utils/Layouts/UserLayout"
 import { AuthContext } from "../../contexts/AuthContext"
 import FeaturedLandmarks from "./containers/FeaturedLandmarks"
 import GreetingCard from "./containers/GreetingCard"
+import LandmarkOfTheDay from "./components/LandmarkOfTheDay"
 
 export default function HomeScreen() {
-  const [greeting, setGreeting] = useState("")
   const [landmarks, setLandmarks] = useState([])
-  const [time, setTime] = useState(
-    new Date().toLocaleTimeString(undefined, {
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-  )
+
   const { user, logOut } = useContext(AuthContext)
 
   useEffect(() => {
@@ -38,38 +33,17 @@ export default function HomeScreen() {
       })
   }, [])
 
-  useEffect(() => {
-    const greetingInterval = setInterval(() => {
-      const currentHour = new Date().getHours()
-      if (currentHour < 12) {
-        setGreeting("Good morning!")
-      } else if (currentHour < 18) {
-        setGreeting("Good afternoon!")
-      } else {
-        setGreeting("Good evening!")
-      }
-    }, 60000)
-
-    const timeInterval = setInterval(() => {
-      setTime(
-        new Date().toLocaleTimeString(undefined, {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      )
-    }, 1000)
-
-    return () => {
-      clearInterval(greetingInterval)
-      clearInterval(timeInterval)
-    }
-  }, [])
-
   return (
     <UserLayout>
-      <ScrollView>
-        <GreetingCard greeting={greeting} time={time} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <GreetingCard />
 
+        <LandmarkOfTheDay
+          landmark={
+            landmarks.length &&
+            landmarks[Math.floor(Math.random() * (landmarks.length + 1))]
+          }
+        />
         <FeaturedLandmarks landmarks={landmarks} />
       </ScrollView>
     </UserLayout>

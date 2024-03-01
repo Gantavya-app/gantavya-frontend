@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   landmarksTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     marginBottom: 8,
   },

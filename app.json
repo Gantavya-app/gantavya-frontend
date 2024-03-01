@@ -17,6 +17,12 @@
         {
           "photosPermission": "The app accesses your photos to upload and identify the landmarks."
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Gantavya to use your location."
+        }
       ]
     ],
     "assetBundlePatterns": ["**/*"],

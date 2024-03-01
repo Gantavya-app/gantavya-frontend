@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import MapView, { Marker } from "react-native-maps"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import dimensions from "../../../utils/constants/dimensions"
 import { axiosInstance } from "../../../utils/config/api"
 import { AuthContext } from "../../../contexts/AuthContext"
@@ -8,12 +8,43 @@ import {
   stringToLatitude,
   stringToLongitude,
 } from "../../../utils/helpers/latLongHelpers"
+import * as Location from "expo-location"
 
 export default function GoogleMapExpo() {
   const [mapLat, setMapLat] = useState(28.25512169876163)
   const [mapLong, setMapLong] = useState(83.97633810555483)
   const [landmarkLocations, setLandmarkLocations] = useState([])
   const { user, logOut } = useContext(AuthContext)
+  const [errorMessage, setErrorMessage] = useState("")
+
+  useEffect(() => {
+    ;(async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync()
+      if (status !== "granted") {
+        setErrorMessage("Permission to access location was denied")
+        return
+      }
+
+      let location = await Location.getCurrentPositionAsync({})
+
+      console.log(location)
+
+      setMapLat(location.coords.latitude)
+      setMapLong(location.coords.longitude)
+
+      setLandmarkLocations((prevLandmarks) => [
+        ...prevLandmarks,
+        {
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+          title: "Your Location",
+          description: "You are currenly here",
+        },
+      ])
+    })()
+  }, [])
+
+  console.log(landmarkLocations)
 
   async function getLandmarks() {
     try {
@@ -22,16 +53,16 @@ export default function GoogleMapExpo() {
           Authorization: `Bearer ${user?.token}`,
         },
       })
-      setLandmarkLocations(
-        response.data.map((item) => {
+      setLandmarkLocations((prevLandmarks) => [
+        ...prevLandmarks,
+        ...response.data.map((item) => {
           return {
             latitude: stringToLatitude(item.latitude),
             longitude: stringToLongitude(item.longitude),
             title: item.name,
-            description: item.description,
           }
-        })
-      )
+        }),
+      ])
     } catch (error) {
       if (error.response) {
         console.log(error.response.data)
@@ -51,6 +82,7 @@ export default function GoogleMapExpo() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.error}>{errorMessage}</Text>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -69,7 +101,7 @@ export default function GoogleMapExpo() {
                 longitude: item.longitude,
               }}
               title={`${item.title}`}
-              // description={`${item.description}`}
+              description={item?.description ? item.description : null}
             />
           )
         })}

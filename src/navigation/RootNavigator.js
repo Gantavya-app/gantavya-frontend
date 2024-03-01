@@ -44,8 +44,20 @@ export default function RootNavigator() {
             />
 
             <Stack.Group>
-              <Stack.Screen name="About" component={AboutScreen} />
-              <Stack.Screen name="Account" component={AccountScreen} />
+              <Stack.Screen
+                name="About"
+                component={AboutScreen}
+                options={{
+                  headerTitle: "About Us",
+                }}
+              />
+              <Stack.Screen
+                name="Account"
+                component={AccountScreen}
+                options={{
+                  headerTitle: "Account Settings",
+                }}
+              />
               <Stack.Screen name="Contact" component={ContactScreen} />
               <Stack.Screen
                 name="Privacy"
@@ -54,20 +66,26 @@ export default function RootNavigator() {
                   headerTitle: "Privacy Policy",
                 }}
               />
-              <Stack.Screen name="Profile" component={ProfileScreen} />
+              <Stack.Screen
+                name="Profile"
+                component={ProfileScreen}
+                options={{
+                  headerTitle: "Your Profile",
+                }}
+              />
             </Stack.Group>
 
             <Stack.Group>
               <Stack.Screen
                 name="Landmark"
                 component={LandmarkScreen}
-                options={{
-                  headerBackTitle: "Back",
-                  headerTitleStyle: {
-                    borderWidth: 1,
-                    borderColor: colors.black,
-                  },
-                }}
+                // options={{
+                //   headerBackTitle: "Back",
+                //   headerTitleStyle: {
+                //     borderWidth: 1,
+                //     borderColor: colors.black,
+                //   },
+                // }}
               />
               <Stack.Screen name="PredictionResult" component={ResultScreen} />
             </Stack.Group>

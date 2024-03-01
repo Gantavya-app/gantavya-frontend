@@ -1,17 +1,18 @@
-import React, { useContext, useEffect, useState } from "react"
-import { View, Text, ScrollView } from "react-native"
+import React, { useCallback, useContext, useEffect, useState } from "react"
+import { View, Text, ScrollView, Image, RefreshControl } from "react-native"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import { axiosInstance } from "../../utils/config/api"
 import { AuthContext } from "../../contexts/AuthContext"
+import SavedLandmarkCard from "../../components/cards/SavedLandmarkCard"
 
 export default function SavedScreen() {
   const [saved, setSaved] = useState([])
-  const [loading, setLoading] = useState(true)
   const { user } = useContext(AuthContext)
 
-  useEffect(() => {
-    setLoading(true)
+  const [refreshing, setRefreshing] = useState(false)
 
+  async function getSavedLandmarks() {
+    setRefreshing(true)
     axiosInstance
       .get("/landmark/saved/", {
         headers: {
@@ -19,39 +20,61 @@ export default function SavedScreen() {
         },
       })
       .then((response) => {
-        console.log(response.data)
+        console.log("saved", response.data)
         setSaved(response.data)
       })
       .catch((error) => {
         console.log(error)
       })
       .finally(() => {
-        setLoading(false)
+        setRefreshing(false)
       })
+  }
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true)
+
+    getSavedLandmarks()
+
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 2000)
+  }, [])
+
+  useEffect(() => {
+    onRefresh()
   }, [])
 
   return (
     <UserLayout>
-      <ScrollView>
-        {loading ? (
+      <ScrollView
+        contentContainerStyle={{ padding: 16 }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        {refreshing ? (
           <View>
-            <Text>Loading saved landmarks...</Text>
+            <Text>refreshing saved landmarks...</Text>
           </View>
         ) : saved.length === 0 ? (
           <View>
             <Text>No saved landmarks</Text>
           </View>
         ) : (
-          saved.map((landmark) => (
-            <View key={landmark.id}>
-              <Text>{landmark.name}</Text>
-              <Text>{landmark.description}</Text>
-              <Image
-                source={{ uri: landmark.image }}
-                style={{ width: 100, height: 100 }}
+          <ScrollView
+            contentContainerStyle={{ padding: 16, alignItems: "center" }}
+          >
+            {saved.map((item) => (
+              <SavedLandmarkCard
+                key={item?.id}
+                name={item?.name}
+                id={item?.id}
+                type={item?.type}
+                image={item?.photos[0]}
               />
-            </View>
-          ))
+            ))}
+          </ScrollView>
         )}
       </ScrollView>
     </UserLayout>

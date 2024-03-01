@@ -1,7 +1,7 @@
 import React from "react"
 import { Alert, Pressable, Share } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
-import colors from "../utils/constants/colors"
+import colors from "../../utils/constants/colors"
 
 const ShareLandmarkBtn = ({ content }) => {
   const onShare = async () => {

@@ -1,14 +1,23 @@
 import React, { useContext, useEffect, useState } from "react"
-import { ScrollView, Text, View } from "react-native"
-import LandmarkDetails from "../../components/LandmarkDetails"
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native"
 import { axiosInstance } from "../../utils/config/api"
 import { AuthContext } from "../../contexts/AuthContext"
-import SaveLandmarkBtn from "../../components/SaveLandmarkBtn"
-import ShareLandmarkBtn from "../../components/ShareLandmarkBtn"
+import SaveLandmarkBtn from "../../components/buttons/SaveLandmarkBtn"
+import ShareLandmarkBtn from "../../components/buttons/ShareLandmarkBtn"
+import LandmarkLocationCard from "../../components/cards/LandmarkLocationCard"
+import Chip from "../../components/common/Chip"
 
 const LandmarkScreen = ({ navigation, route }) => {
   const { landmarkId } = route.params
   const { user } = useContext(AuthContext)
+  const [refreshing, setRefreshing] = useState(false)
 
   const [landmarkDetails, setLandmarkDetails] = useState({
     is_saved: false,
@@ -33,31 +42,114 @@ const LandmarkScreen = ({ navigation, route }) => {
     ),
   })
 
-  useEffect(() => {
+  function getLandmarkById(id) {
     axiosInstance
-      .get(`/landmark/${landmarkId}/`, {
+      .get(`/landmark/${id}/`, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
       })
       .then((response) => {
-        // console.log("landmark ", landmarkId, response?.data)
+        // console.log("landmark ", id, response?.data)
         setLandmarkDetails(response?.data)
       })
       .catch((error) => {
         console.log(error)
       })
+  }
+
+  function onRefresh() {
+    setRefreshing(true)
+
+    getLandmarkById(landmarkId)
+
+    setTimeout(() => {
+      setRefreshing(false)
+    })
+  }
+
+  useEffect(() => {
+    onRefresh()
   }, [])
 
   return (
-    <ScrollView contentContainerStyle={{ padding: 16 }}>
-      <LandmarkDetails
-        isSaved={landmarkDetails.is_saved}
-        landmark={landmarkDetails.landmark}
-        photos={landmarkDetails?.photos}
-      />
+    <ScrollView
+      contentContainerStyle={{ padding: 16 }}
+      refreshControl={
+        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+      }
+    >
+      <View>
+        <View style={{ marginBottom: 8 }}>
+          <Text style={styles.landmarkName}>
+            {landmarkDetails.landmark?.name}
+          </Text>
+          <Chip text={landmarkDetails.landmark?.type} />
+        </View>
+
+        <ScrollView horizontal style={{ marginVertical: 24 }}>
+          {!landmarkDetails?.photos?.length ? (
+            <Text>No photos available.</Text>
+          ) : (
+            landmarkDetails?.photos?.map((photo, index) => (
+              <>
+                <Image
+                  key={index}
+                  source={{
+                    uri:
+                      photo?.photo_url ||
+                      photo ||
+                      "https://via.placeholder.com/200",
+                  }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    marginRight: 10,
+                    borderRadius: 12,
+                    marginVertical: 8,
+                  }}
+                />
+              </>
+            ))
+          )}
+        </ScrollView>
+
+        <View style={{ marginVertical: 10 }}>
+          <Text style={{ fontSize: 16, fontWeight: 600 }}>Address:</Text>
+          <Text style={{ color: colors.darkGrey }}>
+            {landmarkDetails.landmark?.address}
+          </Text>
+        </View>
+
+        <LandmarkLocationCard
+          latitude={landmarkDetails?.landmark?.latitude}
+          longitude={landmarkDetails?.landmark?.longitude}
+        />
+
+        <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
+          Landmark Details:
+        </Text>
+        <Text style={{ color: colors.darkGrey }}>
+          {landmarkDetails.landmark?.description}
+        </Text>
+
+        <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
+          Facts:
+        </Text>
+        <Text style={{ color: colors.darkGrey }}>
+          {landmarkDetails.landmark?.facts}
+        </Text>
+      </View>
     </ScrollView>
   )
 }
+
+const styles = StyleSheet.create({
+  landmarkName: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
+})
 
 export default LandmarkScreen

@@ -14,9 +14,6 @@ import {
   RegisterScreen,
   ResultScreen,
 } from "../screens"
-import { Button, Pressable, Text, View } from "react-native"
-import SaveLandmarkBtn from "../components/SaveLandmarkBtn"
-import ShareLandmarkBtn from "../components/ShareLandmarkBtn"
 
 const Stack = createNativeStackNavigator()
 

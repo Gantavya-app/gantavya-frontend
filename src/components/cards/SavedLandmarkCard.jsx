@@ -1,52 +1,54 @@
 import React from "react"
-import { View, Image, Text, ScrollView, StyleSheet } from "react-native"
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Pressable,
+} from "react-native"
+import dimensions from "../../utils/constants/dimensions"
+import { useNavigation } from "@react-navigation/core"
 
-const SavedLandmarkCard = () => {
-  const landmarks = [
-    {
-      id: 1,
-      title: "Eiffel Tower",
-      type: "Monument",
-      image: "",
-    },
-    {
-      id: 2,
-      title: "Taj Mahal",
-      type: "Monument",
-      image: "",
-    },
-  ]
+const SavedLandmarkCard = ({ name, id, image, type }) => {
+  const navigation = useNavigation()
 
   return (
-    <ScrollView>
-      {landmarks.map((landmark) => (
-        <View key={landmark.id} style={styles.cardContainer}>
-          <Image
-            source={landmark.image}
-            style={styles.cardImage}
-            resizeMode="cover"
-          />
-          <View style={styles.cardContent}>
-            <Text style={styles.cardTitle}>{landmark.title}</Text>
-            <Text style={styles.cardType}>{landmark.type}</Text>
-          </View>
+    <Pressable
+      onPress={() =>
+        navigation.navigate("Landmark", {
+          landmarkId: id,
+        })
+      }
+    >
+      <View key={id} style={styles.cardContainer}>
+        <Image
+          source={{
+            uri: image,
+          }}
+          style={styles.cardImage}
+          resizeMode="cover"
+        />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitle}>{name}</Text>
+          <Text style={styles.cardType}>{type}</Text>
         </View>
-      ))}
-    </ScrollView>
+      </View>
+    </Pressable>
   )
 }
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: "100%",
+    width: 310,
     backgroundColor: "#fff",
     marginBottom: 10,
     borderRadius: 10,
     overflow: "hidden",
   },
   cardImage: {
-    width: "100%",
-    height: 200,
+    width: dimensions.width,
+    height: 175,
   },
   cardContent: {
     padding: 10,

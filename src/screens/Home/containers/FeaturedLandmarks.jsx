@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     padding: 16,
     marginRight: 24,
     width: 240,
+    height: "100%",
     shadowColor: "rgba(0,0,0,0.5)",
     shadowOpacity: 0.25,
   },

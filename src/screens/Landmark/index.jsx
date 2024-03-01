@@ -87,29 +87,31 @@ const LandmarkScreen = ({ navigation, route }) => {
           <Chip text={landmarkDetails.landmark?.type} />
         </View>
 
-        <ScrollView horizontal style={{ marginVertical: 24 }}>
+        <ScrollView
+          horizontal
+          style={{ marginVertical: 24 }}
+          showsHorizontalScrollIndicator={false}
+        >
           {!landmarkDetails?.photos?.length ? (
             <Text>No photos available.</Text>
           ) : (
             landmarkDetails?.photos?.map((photo, index) => (
-              <>
-                <Image
-                  key={index}
-                  source={{
-                    uri:
-                      photo?.photo_url ||
-                      photo ||
-                      "https://via.placeholder.com/200",
-                  }}
-                  style={{
-                    width: 200,
-                    height: 200,
-                    marginRight: 10,
-                    borderRadius: 12,
-                    marginVertical: 8,
-                  }}
-                />
-              </>
+              <Image
+                key={index}
+                source={{
+                  uri:
+                    photo?.photo_url ||
+                    photo ||
+                    "https://via.placeholder.com/200",
+                }}
+                style={{
+                  width: 200,
+                  height: 200,
+                  marginRight: 10,
+                  borderRadius: 12,
+                  marginVertical: 8,
+                }}
+              />
             ))
           )}
         </ScrollView>

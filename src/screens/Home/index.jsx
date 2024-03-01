@@ -75,5 +75,3 @@ export default function HomeScreen() {
     </UserLayout>
   )
 }
-
-const styles = StyleSheet.create({})

@@ -14,6 +14,9 @@ import {
   RegisterScreen,
   ResultScreen,
 } from "../screens"
+import { Button, Pressable, Text, View } from "react-native"
+import SaveLandmarkBtn from "../components/SaveLandmarkBtn"
+import ShareLandmarkBtn from "../components/ShareLandmarkBtn"
 
 const Stack = createNativeStackNavigator()
 
@@ -51,13 +54,7 @@ export default function RootNavigator() {
             </Stack.Group>
 
             <Stack.Group>
-              <Stack.Screen
-                name="Landmark"
-                component={LandmarkScreen}
-                options={{
-                  headerTitle: "Landmark Details",
-                }}
-              />
+              <Stack.Screen name="Landmark" component={LandmarkScreen} />
               <Stack.Screen name="PredictionResult" component={ResultScreen} />
             </Stack.Group>
           </Stack.Group>

@@ -25,8 +25,6 @@ export default function HomeScreen() {
         },
       })
       .then((response) => {
-        console.log("landmarks", response.data)
-
         setLandmarks(response.data)
       })
       .catch((error) => {

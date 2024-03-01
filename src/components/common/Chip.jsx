@@ -1,5 +1,6 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
+import colors from "../../utils/constants/colors"
 
 const Chip = ({ text }) => {
   return (
@@ -13,8 +14,8 @@ const styles = StyleSheet.create({
   chipTextStyle: {
     fontSize: 12,
     fontWeight: "bold",
-    backgroundColor: colors.darkBlue,
-    color: colors.white,
+    backgroundColor: colors.lightGreen,
+    color: colors.darkGreen,
     alignSelf: "flex-start",
     borderRadius: 100,
     paddingHorizontal: 16,

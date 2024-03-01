@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react"
-import { ScrollView } from "react-native"
+import { ScrollView, Text, View } from "react-native"
 import LandmarkDetails from "../../components/LandmarkDetails"
 import { axiosInstance } from "../../utils/config/api"
 import { AuthContext } from "../../contexts/AuthContext"
+import SaveLandmarkBtn from "../../components/SaveLandmarkBtn"
+import ShareLandmarkBtn from "../../components/ShareLandmarkBtn"
 
 const LandmarkScreen = ({ navigation, route }) => {
   const { landmarkId } = route.params
@@ -14,6 +16,23 @@ const LandmarkScreen = ({ navigation, route }) => {
     photos: [],
   })
 
+  navigation.setOptions({
+    headerTitle: () => (
+      <Text fontSize={12}>{landmarkDetails?.landmark?.name}</Text>
+    ),
+    headerRight: () => (
+      <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
+        <ShareLandmarkBtn
+          content={`${landmarkDetails?.landmark?.name}\n${landmarkDetails?.landmark?.description}`}
+        />
+        <SaveLandmarkBtn
+          id={landmarkDetails.landmark.id}
+          isSaved={landmarkDetails.is_saved}
+        />
+      </View>
+    ),
+  })
+
   useEffect(() => {
     axiosInstance
       .get(`/landmark/${landmarkId}/`, {
@@ -22,7 +41,7 @@ const LandmarkScreen = ({ navigation, route }) => {
         },
       })
       .then((response) => {
-        console.log("landmark ", landmarkId, response?.data)
+        // console.log("landmark ", landmarkId, response?.data)
         setLandmarkDetails(response?.data)
       })
       .catch((error) => {

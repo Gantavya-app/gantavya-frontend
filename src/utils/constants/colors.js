@@ -16,7 +16,7 @@ export default colors = {
   transparent: "transparent",
   lightBlue: "#E3F2FD",
   lightRed: "#FFEBEE",
-  lightGreen: "#E8F5E9",
+  lightGreen: "#E1F0E1",
   lightYellow: "#FFF3E0",
   lightOrange: "#FFF3E0",
   darkBlue: "#1976D2",

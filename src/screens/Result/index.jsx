@@ -23,7 +23,7 @@ const ResultScreen = ({ route }) => {
         },
       })
       .then((response) => {
-        console.log("landmark ", landmarkId, response?.data)
+        // console.log("landmark ", landmarkId, response?.data)
         setLandmarkDetails(response?.data)
       })
       .catch((error) => {

@@ -1,15 +1,18 @@
 import React from "react"
 import { Text, ScrollView, Image, StyleSheet, View } from "react-native"
+import colors from "../../../../utils/constants/colors"
 
 const AboutScreen = () => {
   return (
     <ScrollView
       style={styles.container}
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 16 }}
     >
-      <Text style={styles.title}>About Us</Text>
-
-      <Text style={styles.description}>
+      <Text selectable style={styles.sectionTitle}>
+        About Gantavya
+      </Text>
+      <Text selectable style={styles.description}>
         Welcome to Gantavya, a project developed by a team of talented
         developers in fulfillment of the major project for our Bachelor of
         Computer Engineering course. Our goal is to promote tourism and provide
@@ -17,9 +20,11 @@ const AboutScreen = () => {
         sites.
       </Text>
 
-      <Text style={styles.sectionTitle}>Project Details</Text>
+      <Text selectable style={styles.sectionTitle}>
+        Project Details
+      </Text>
 
-      <Text style={styles.description}>
+      <Text selectable style={styles.description}>
         Gantavya is built using React Native for the frontend, Django for the
         backend, and SQLite as the database. The project is designed to allow
         users to identify landmarks, view their historical importance, get
@@ -29,7 +34,9 @@ const AboutScreen = () => {
         details, directions, and information about nearby places.
       </Text>
 
-      <Text style={styles.sectionTitle}>Developers</Text>
+      <Text selectable style={styles.sectionTitle}>
+        Developers
+      </Text>
 
       <View style={styles.developerContainer}>
         <Image
@@ -37,8 +44,12 @@ const AboutScreen = () => {
           style={styles.developerImage}
         />
         <View>
-          <Text style={styles.developerName}>Rupesh Ghimire</Text>
-          <Text style={styles.developerRole}>Backend Developer (Django)</Text>
+          <Text selectable style={styles.developerName}>
+            Rupesh Ghimire
+          </Text>
+          <Text selectable style={styles.developerRole}>
+            Backend Developer (Django)
+          </Text>
         </View>
       </View>
 
@@ -48,8 +59,10 @@ const AboutScreen = () => {
           style={styles.developerImage}
         />
         <View>
-          <Text style={styles.developerName}>Sandesh G.C.</Text>
-          <Text style={styles.developerRole}>
+          <Text selectable style={styles.developerName}>
+            Sandesh G.C.
+          </Text>
+          <Text selectable style={styles.developerRole}>
             Frontend Developer (React Native)
           </Text>
         </View>
@@ -61,8 +74,12 @@ const AboutScreen = () => {
           style={styles.developerImage}
         />
         <View>
-          <Text style={styles.developerName}>Samir Gurung</Text>
-          <Text style={styles.developerRole}>Data Collection Specialist</Text>
+          <Text selectable style={styles.developerName}>
+            Samir Gurung
+          </Text>
+          <Text selectable style={styles.developerRole}>
+            Data Collection Specialist
+          </Text>
         </View>
       </View>
 
@@ -72,8 +89,12 @@ const AboutScreen = () => {
           style={styles.developerImage}
         />
         <View>
-          <Text style={styles.developerName}>Subek Sharma</Text>
-          <Text style={styles.developerRole}>Machine Learning Specialist</Text>
+          <Text selectable style={styles.developerName}>
+            Subek Sharma
+          </Text>
+          <Text selectable style={styles.developerRole}>
+            Machine Learning Specialist
+          </Text>
         </View>
       </View>
     </ScrollView>
@@ -85,20 +106,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
-    marginTop: 24,
     marginBottom: 16,
   },
   description: {
     fontSize: 16,
-    marginBottom: 16,
+    color: colors.darkGrey,
+    marginBottom: 20,
   },
   developerContainer: {
     flexDirection: "row",

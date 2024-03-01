@@ -67,12 +67,12 @@ export default function MenuScreen({ navigation }) {
       name: "About",
       action: navigateToAbout,
     },
-    {
-      icon: <Ionicons name="call-outline" size={20} color="black" />,
-      text: "Contact Us",
-      name: "Contact",
-      action: navigateToContact,
-    },
+    // {
+    //   icon: <Ionicons name="call-outline" size={20} color="black" />,
+    //   text: "Contact Us",
+    //   name: "Contact",
+    //   action: navigateToContact,
+    // },
   ]
 
   return (

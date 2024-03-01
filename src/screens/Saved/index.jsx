@@ -1,9 +1,17 @@
 import React, { useCallback, useContext, useEffect, useState } from "react"
-import { View, Text, ScrollView, Image, RefreshControl } from "react-native"
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  RefreshControl,
+  Dimensions,
+} from "react-native"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import { axiosInstance } from "../../utils/config/api"
 import { AuthContext } from "../../contexts/AuthContext"
 import SavedLandmarkCard from "../../components/cards/SavedLandmarkCard"
+import dimensions from "../../utils/constants/dimensions"
 
 export default function SavedScreen() {
   const [saved, setSaved] = useState([])
@@ -48,11 +56,13 @@ export default function SavedScreen() {
   return (
     <UserLayout>
       <ScrollView
-        contentContainerStyle={{ padding: 16 }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
+        <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 16 }}>
+          Saved Landmarks
+        </Text>
         {refreshing ? (
           <View>
             <Text>refreshing saved landmarks...</Text>
@@ -63,16 +73,21 @@ export default function SavedScreen() {
           </View>
         ) : (
           <ScrollView
-            contentContainerStyle={{ padding: 16, alignItems: "center" }}
+            contentContainerStyle={{
+              alignItems: "center",
+              gap: 8,
+            }}
           >
             {saved.map((item) => (
-              <SavedLandmarkCard
-                key={item?.id}
-                name={item?.name}
-                id={item?.id}
-                type={item?.type}
-                image={item?.photos[0]}
-              />
+              <View style={{ marginVertical: 8 }}>
+                <SavedLandmarkCard
+                  key={item?.id}
+                  name={item?.name}
+                  id={item?.id}
+                  type={item?.type}
+                  image={item?.photos[0]}
+                />
+              </View>
             ))}
           </ScrollView>
         )}

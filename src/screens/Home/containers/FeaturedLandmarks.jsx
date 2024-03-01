@@ -33,6 +33,9 @@ const FeaturedLandmarks = ({ landmarks }) => {
       <FlatList
         data={landmarks.slice(0, 5)}
         horizontal
+        contentContainerStyle={{
+          gap: 24,
+        }}
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
@@ -73,7 +76,6 @@ const FeaturedLandmarks = ({ landmarks }) => {
 const styles = StyleSheet.create({
   landmarksContainer: {
     marginTop: 24,
-    paddingHorizontal: 16,
   },
   landmarksTitle: {
     fontSize: 18,
@@ -84,14 +86,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 16,
-    marginRight: 24,
     width: 240,
-    height: "100%",
+    flex: 1,
     shadowColor: "rgba(0,0,0,0.5)",
     shadowOpacity: 0.25,
   },
   landmarkName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     marginBottom: 8,
   },

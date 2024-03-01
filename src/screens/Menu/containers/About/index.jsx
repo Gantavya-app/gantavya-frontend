@@ -57,9 +57,7 @@ const AboutScreen = () => {
 
       <View style={styles.developerContainer}>
         <Image
-          source={{
-            uri: "https://placehold.co/400",
-          }}
+          source={require("../../../../assets/images/samir_gurung.jpeg")}
           style={styles.developerImage}
         />
         <View>

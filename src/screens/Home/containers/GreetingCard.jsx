@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGreen,
     borderRadius: 8,
     padding: 16,
-    margin: 16,
     shadowColor: "rgba(0,0,0,0.5)",
     shadowOffset: {
       width: 0,
@@ -36,19 +35,18 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   greeting: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 16,
   },
   timeText: {
-    fontSize: 32,
+    fontSize: 24,
     fontWeight: "bold",
-    color: colors.darkGrey,
+    color: colors.darkGreen,
   },
 
   dateText: {
     fontSize: 14,
-    marginTop: 8,
     color: colors.darkGrey,
   },
 })

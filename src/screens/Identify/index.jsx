@@ -82,7 +82,7 @@ export default function IdentifyScreen({ navigation, route }) {
   return (
     <UserLayout>
       <ScrollView>
-        <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 16 }}>
+        <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 16 }}>
           Identify Landmark
         </Text>
         <Text style={{ fontSize: 16, marginBottom: 16 }}>

@@ -1,5 +1,5 @@
 import React, { useContext } from "react"
-import { View, Text, Pressable, StyleSheet } from "react-native"
+import { View, Text, Pressable, StyleSheet, ScrollView } from "react-native"
 import UserLayout from "../../utils/Layouts/UserLayout"
 import { AuthContext } from "../../contexts/AuthContext"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -77,33 +77,40 @@ export default function MenuScreen({ navigation }) {
 
   return (
     <UserLayout>
-      <View>
-        {menuOptions.map((option, index) => {
-          return (
-            <Pressable
-              onPress={option?.action}
-              key={index}
-              style={styles.listItemStyle}
-            >
-              <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+      <ScrollView>
+        <View>
+          {menuOptions.map((option, index) => {
+            return (
+              <Pressable
+                onPress={option?.action}
+                key={index}
+                style={styles.listItemStyle}
               >
-                {option?.icon && option?.icon}
-                <Text>{option.text}</Text>
-              </View>
-            </Pressable>
-          )
-        })}
-      </View>
-
-      <View>
-        <Pressable onPress={logOut} style={styles.listItemStyle}>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <AntDesign name="logout" size={20} color="red" />
-            <Text style={{ color: colors.error }}>Log Out</Text>
-          </View>
-        </Pressable>
-      </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  {option?.icon && option?.icon}
+                  <Text>{option.text}</Text>
+                </View>
+              </Pressable>
+            )
+          })}
+        </View>
+        <View>
+          <Pressable onPress={logOut} style={styles.listItemStyle}>
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+            >
+              <AntDesign name="logout" size={20} color="red" />
+              <Text style={{ color: colors.error }}>Log Out</Text>
+            </View>
+          </Pressable>
+        </View>
+      </ScrollView>
     </UserLayout>
   )
 }

@@ -13,6 +13,7 @@ import SaveLandmarkBtn from "../../components/buttons/SaveLandmarkBtn"
 import ShareLandmarkBtn from "../../components/buttons/ShareLandmarkBtn"
 import LandmarkLocationCard from "../../components/cards/LandmarkLocationCard"
 import Chip from "../../components/common/Chip"
+import colors from "../../utils/constants/colors"
 
 const LandmarkScreen = ({ navigation, route }) => {
   const { landmarkId } = route.params
@@ -26,13 +27,10 @@ const LandmarkScreen = ({ navigation, route }) => {
   })
 
   navigation.setOptions({
-    headerTitle: () => (
-      <Text fontSize={12}>{landmarkDetails?.landmark?.name}</Text>
-    ),
     headerRight: () => (
       <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
         <ShareLandmarkBtn
-          content={`${landmarkDetails?.landmark?.name}\n${landmarkDetails?.landmark?.description}`}
+          content={`${landmarkDetails?.landmark?.name}\nDescription:\n${landmarkDetails?.landmark?.description}\nFacts:\n${landmarkDetails?.landmark?.facts}\nAddress:\n${landmarkDetails?.landmark?.address}`}
         />
         <SaveLandmarkBtn
           id={landmarkDetails.landmark.id}
@@ -128,17 +126,32 @@ const LandmarkScreen = ({ navigation, route }) => {
           longitude={landmarkDetails?.landmark?.longitude}
         />
 
-        <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
+        <Text
+          style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}
+          selectable
+        >
           Landmark Details:
         </Text>
-        <Text style={{ color: colors.darkGrey }}>
+        <Text
+          style={{ color: colors.darkGrey }}
+          selectable
+          selectionColor={colors.lightGreen}
+        >
           {landmarkDetails.landmark?.description}
         </Text>
 
-        <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
+        <Text
+          style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}
+          selectable
+          selectionColor={colors.lightGreen}
+        >
           Facts:
         </Text>
-        <Text style={{ color: colors.darkGrey }}>
+        <Text
+          style={{ color: colors.darkGrey }}
+          selectable
+          selectionColor={colors.lightGreen}
+        >
           {landmarkDetails.landmark?.facts}
         </Text>
       </View>

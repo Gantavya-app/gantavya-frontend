@@ -1,14 +1,19 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Pressable } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import ProgressCircleSnail from "react-native-progress/CircleSnail"
 import { axiosInstance } from "../../utils/config/api"
 import { AuthContext } from "../../contexts/AuthContext"
+import colors from "../../utils/constants/colors"
 
 const SaveLandmarkBtn = ({ id, isSaved }) => {
   const [saved, setSaved] = useState(isSaved)
   const [loading, setLoading] = useState(false)
   const { user } = useContext(AuthContext)
+
+  useEffect(() => {
+    setSaved(isSaved)
+  }, [isSaved])
 
   function handleSave() {
     setLoading(true)

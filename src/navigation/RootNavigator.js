@@ -14,6 +14,7 @@ import {
   RegisterScreen,
   ResultScreen,
 } from "../screens"
+import colors from "../utils/constants/colors"
 
 const Stack = createNativeStackNavigator()
 
@@ -51,7 +52,17 @@ export default function RootNavigator() {
             </Stack.Group>
 
             <Stack.Group>
-              <Stack.Screen name="Landmark" component={LandmarkScreen} />
+              <Stack.Screen
+                name="Landmark"
+                component={LandmarkScreen}
+                options={{
+                  headerBackTitle: "Back",
+                  headerTitleStyle: {
+                    borderWidth: 1,
+                    borderColor: colors.black,
+                  },
+                }}
+              />
               <Stack.Screen name="PredictionResult" component={ResultScreen} />
             </Stack.Group>
           </Stack.Group>

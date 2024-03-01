@@ -15,6 +15,7 @@ import Chip from "../../components/common/Chip"
 import LandmarkLocationCard from "../../components/cards/LandmarkLocationCard"
 import ShareLandmarkBtn from "../../components/buttons/ShareLandmarkBtn"
 import SaveLandmarkBtn from "../../components/buttons/SaveLandmarkBtn"
+import colors from "../../utils/constants/colors"
 
 const ResultScreen = ({ navigation, route }) => {
   const { landmarkId, confidence_score } = route.params
@@ -28,9 +29,6 @@ const ResultScreen = ({ navigation, route }) => {
   })
 
   navigation.setOptions({
-    headerTitle: () => (
-      <Text fontSize={12}>{landmarkDetails?.landmark?.name}</Text>
-    ),
     headerRight: () => (
       <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
         <ShareLandmarkBtn
@@ -145,14 +143,14 @@ const ResultScreen = ({ navigation, route }) => {
           <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
             Landmark Details:
           </Text>
-          <Text style={{ color: colors.darkGrey }}>
+          <Text style={{ color: colors.darkGrey }} selectable>
             {landmarkDetails.landmark?.description}
           </Text>
 
           <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
             Facts:
           </Text>
-          <Text style={{ color: colors.darkGrey }}>
+          <Text style={{ color: colors.darkGrey }} selectable>
             {landmarkDetails.landmark?.facts}
           </Text>
         </View>

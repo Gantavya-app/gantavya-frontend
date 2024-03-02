@@ -1,18 +1,15 @@
-import React, { useState } from "react"
-import {
-  Pressable,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native"
+import React, { useContext, useState } from "react"
+import { Text, TextInput, TouchableOpacity, View } from "react-native"
 import { Feather } from "@expo/vector-icons"
 import UserLayout from "../../../../utils/Layouts/UserLayout"
 import { axiosInstance } from "../../../../utils/config/api"
 import colors from "../../../../utils/constants/colors"
 import Button from "../../../../components/common/Button"
+import { AuthContext } from "../../../../contexts/AuthContext"
 
 const AccountScreen = () => {
+  const { user } = useContext(AuthContext)
+
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [showOldPassword, setShowOldPassword] = useState(false)
@@ -32,7 +29,11 @@ const AccountScreen = () => {
 
   const handleDeleteAccount = () => {
     axiosInstance
-      .delete("/users/me/")
+      .delete("/users/profile/delete/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
       .then((res) => {
         console.log(res)
       })

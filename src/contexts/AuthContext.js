@@ -1,8 +1,10 @@
 import React, { createContext, useEffect, useState } from "react"
 import Toast from "react-native-root-toast"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { axiosInstance } from "../utils/config/api"
 
 const initialUserState = {
+  id: 0,
   name: "",
   email: "",
   token: "",
@@ -18,6 +20,28 @@ export const AuthContext = createContext({
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(initialUserState)
+
+  async function fetchUser() {
+    try {
+      const response = await axiosInstance.get("/users/profile/", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+
+      console.log("new user", response.data)
+
+      saveUser({
+        name: response.data.name,
+        email: response.data.email,
+        token: user.token,
+        isAdmin: response.data.isAdmin,
+        isLoggedIn: true,
+      })
+    } catch (error) {
+      console.log("fetch user error", error)
+    }
+  }
 
   // when app isrefreshed, get user from async storage
   useEffect(() => {
@@ -46,6 +70,7 @@ export default function AuthProvider({ children }) {
     user,
     saveUser,
     getUser,
+    fetchUser,
     logOut,
   }
   return (

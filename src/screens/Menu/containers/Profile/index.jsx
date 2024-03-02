@@ -1,18 +1,11 @@
 import React, { useContext, useState } from "react"
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from "react-native"
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native"
 import { AuthContext } from "../../../../contexts/AuthContext"
 import { Ionicons } from "@expo/vector-icons"
 import colors from "../../../../utils/constants/colors"
 import { axiosInstance } from "../../../../utils/config/api"
 import UserLayout from "../../../../utils/Layouts/UserLayout"
-import AccountScreen from "../Account"
+import PredictionHistory from "./PredictionHistory"
 
 const ProfileScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext)
@@ -41,116 +34,119 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <UserLayout>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <View style={{ alignItems: "center" }}>
-            <Ionicons
-              name="person-circle-outline"
-              size={96}
-              color={colors.darkBlue}
-            />
-            <Text style={{ fontSize: 16, fontWeight: 600 }}>{user?.name}</Text>
-            <Text style={{ color: colors.darkGrey }}>{user?.email}</Text>
-          </View>
-          {!editMode ? (
+      <View>
+        <View style={{ alignItems: "center" }}>
+          <Ionicons
+            name="person-circle-outline"
+            size={96}
+            color={colors.darkBlue}
+          />
+          <Text style={{ fontSize: 16, fontWeight: 600 }}>{user?.name}</Text>
+          <Text style={{ color: colors.darkGrey }}>{user?.email}</Text>
+        </View>
+        {!editMode ? (
+          <Pressable
+            onPress={() => setEditMode(true)}
+            style={{
+              alignSelf: "center",
+              paddingVertical: 4,
+              paddingHorizontal: 12,
+              borderRadius: 4,
+              borderWidth: 1,
+              borderColor: colors.darkBlue,
+              marginVertical: 10,
+            }}
+          >
+            <Text style={{ color: colors.darkBlue }}>Edit Profile</Text>
+          </Pressable>
+        ) : (
+          <View
+            style={{
+              flexDirection: "row",
+              gap: 10,
+              alignItems: "center",
+              justifyContent: "center",
+              marginVertical: 10,
+            }}
+          >
             <Pressable
-              onPress={() => setEditMode(true)}
+              onPress={handleEditProfile}
               style={{
-                alignSelf: "center",
+                borderColor: colors.success,
+                borderWidth: 1,
                 paddingVertical: 4,
                 paddingHorizontal: 12,
                 borderRadius: 4,
-                borderWidth: 1,
-                borderColor: colors.darkBlue,
-                marginVertical: 10,
+                backgroundColor: colors.success,
               }}
             >
-              <Text style={{ color: colors.darkBlue }}>Edit Profile</Text>
+              <Text style={{ color: colors.white }}>Save</Text>
             </Pressable>
-          ) : (
-            <View
+            <Pressable
+              onPress={handleCancelEditing}
               style={{
-                flexDirection: "row",
-                gap: 10,
-                alignItems: "center",
-                justifyContent: "center",
-                marginVertical: 10,
+                borderColor: colors.error,
+                borderWidth: 1,
+                paddingVertical: 4,
+                paddingHorizontal: 12,
+                borderRadius: 4,
+                color: colors.error,
               }}
             >
-              <Pressable
-                onPress={handleEditProfile}
-                style={{
-                  borderColor: colors.success,
-                  borderWidth: 1,
-                  paddingVertical: 4,
-                  paddingHorizontal: 12,
-                  borderRadius: 4,
-                  backgroundColor: colors.success,
-                }}
-              >
-                <Text style={{ color: colors.white }}>Save</Text>
-              </Pressable>
-              <Pressable
-                onPress={handleCancelEditing}
-                style={{
-                  borderColor: colors.error,
-                  borderWidth: 1,
-                  paddingVertical: 4,
-                  paddingHorizontal: 12,
-                  borderRadius: 4,
-                  color: colors.error,
-                }}
-              >
-                <Text style={{ color: colors.error }}>Cancel</Text>
-              </Pressable>
+              <Text style={{ color: colors.error }}>Cancel</Text>
+            </Pressable>
+          </View>
+        )}
+        {editMode && (
+          <>
+            <Text
+              style={{
+                fontSize: 14,
+                fontWeight: 600,
+                marginBottom: 8,
+                marginTop: 16,
+              }}
+            >
+              Edit Profile
+            </Text>
+            <View>
+              <Text style={styles.inputLabel}>Full name</Text>
+              <TextInput
+                placeholder="Full name"
+                value={userEditing?.name}
+                onChangeText={(text) =>
+                  setUserEditing({
+                    ...userEditing,
+                    name: text,
+                  })
+                }
+                style={styles.textInput}
+              />
             </View>
-          )}
-          {editMode && (
-            <>
-              <Text
-                style={{
-                  fontSize: 14,
-                  fontWeight: 600,
-                  marginBottom: 8,
-                  marginTop: 16,
-                }}
-              >
-                Edit Profile
-              </Text>
-              <View>
-                <Text style={styles.inputLabel}>Full name</Text>
-                <TextInput
-                  placeholder="Full name"
-                  value={userEditing?.name}
-                  onChangeText={(text) =>
-                    setUserEditing({
-                      ...userEditing,
-                      name: text,
-                    })
-                  }
-                  style={styles.textInput}
-                />
-              </View>
-              <View>
-                <Text style={styles.inputLabel}>Email address</Text>
-                <TextInput
-                  placeholder="Email address"
-                  value={userEditing?.email}
-                  onChangeText={(text) =>
-                    setUserEditing({
-                      ...userEditing,
-                      email: text,
-                    })
-                  }
-                  style={styles.textInput}
-                />
-              </View>
-            </>
-          )}
-        </View>
+            <View>
+              <Text style={styles.inputLabel}>Email address</Text>
+              <TextInput
+                placeholder="Email address"
+                value={userEditing?.email}
+                onChangeText={(text) =>
+                  setUserEditing({
+                    ...userEditing,
+                    email: text,
+                  })
+                }
+                style={styles.textInput}
+              />
+            </View>
+          </>
+        )}
+      </View>
 
-        <AccountScreen />
-      </ScrollView>
+      <View>
+        <Text style={{ fontSize: 14, fontWeight: 600, marginBottom: 8 }}>
+          Prediction History
+        </Text>
+        <PredictionHistory />
+      </View>
     </UserLayout>
   )
 }

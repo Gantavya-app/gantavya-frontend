@@ -45,12 +45,12 @@ export default function MenuScreen({ navigation }) {
       name: "Profile",
       action: navigateToProfile,
     },
-    // {
-    //   icon: <AntDesign name="lock" size={22} />,
-    //   text: "Account Settings",
-    //   name: "Account",
-    //   action: navigateToAccountSettings,
-    // },
+    {
+      icon: <AntDesign name="lock" size={22} />,
+      text: "Account Settings",
+      name: "Account",
+      action: navigateToAccountSettings,
+    },
     // { icon: "moon", text: "Dark Mode",component:  },
     // { icon: "lightbulb", text: "Light Mode",component:  },
     {

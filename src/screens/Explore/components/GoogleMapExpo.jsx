@@ -27,8 +27,6 @@ export default function GoogleMapExpo() {
 
       let location = await Location.getCurrentPositionAsync({})
 
-      console.log(location)
-
       setMapLat(location.coords.latitude)
       setMapLong(location.coords.longitude)
 
@@ -38,13 +36,11 @@ export default function GoogleMapExpo() {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
           title: "Your Location",
-          description: "You are currenly here",
+          address: "You are currenly here",
         },
       ])
     })()
   }, [])
-
-  console.log(landmarkLocations)
 
   async function getLandmarks() {
     try {
@@ -60,6 +56,7 @@ export default function GoogleMapExpo() {
             latitude: stringToLatitude(item.latitude),
             longitude: stringToLongitude(item.longitude),
             title: item.name,
+            address: item.address,
           }
         }),
       ])
@@ -101,7 +98,7 @@ export default function GoogleMapExpo() {
                 longitude: item.longitude,
               }}
               title={`${item.title}`}
-              description={item?.description ? item.description : null}
+              description={item?.address ? item.address : null}
             />
           )
         })}
@@ -116,6 +113,6 @@ const styles = StyleSheet.create({
   },
 
   map: {
-    height: dimensions.height,
+    height: dimensions.height - 300,
   },
 })

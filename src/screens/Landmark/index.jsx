@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import {
+  ActivityIndicator,
   Image,
-  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
@@ -14,11 +14,16 @@ import ShareLandmarkBtn from "../../components/buttons/ShareLandmarkBtn"
 import LandmarkLocationCard from "../../components/cards/LandmarkLocationCard"
 import Chip from "../../components/common/Chip"
 import colors from "../../utils/constants/colors"
+import MapView, { Marker } from "react-native-maps"
+import {
+  stringToLatitude,
+  stringToLongitude,
+} from "../../utils/helpers/latLongHelpers"
+import UserLayout from "../../utils/Layouts/UserLayout"
 
 const LandmarkScreen = ({ navigation, route }) => {
   const { landmarkId } = route.params
   const { user } = useContext(AuthContext)
-  const [refreshing, setRefreshing] = useState(false)
 
   const [landmarkDetails, setLandmarkDetails] = useState({
     is_saved: false,
@@ -26,19 +31,21 @@ const LandmarkScreen = ({ navigation, route }) => {
     photos: [],
   })
 
-  navigation.setOptions({
-    headerRight: () => (
-      <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-        <ShareLandmarkBtn
-          content={`${landmarkDetails?.landmark?.name}\nDescription:\n${landmarkDetails?.landmark?.description}\nFacts:\n${landmarkDetails?.landmark?.facts}\nAddress:\n${landmarkDetails?.landmark?.address}`}
-        />
-        <SaveLandmarkBtn
-          id={landmarkDetails.landmark.id}
-          isSaved={landmarkDetails.is_saved}
-        />
-      </View>
-    ),
-  })
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
+          <ShareLandmarkBtn
+            content={`${landmarkDetails?.landmark?.name}\nDescription:\n${landmarkDetails?.landmark?.description}\nFacts:\n${landmarkDetails?.landmark?.facts}\nAddress:\n${landmarkDetails?.landmark?.address}`}
+          />
+          <SaveLandmarkBtn
+            id={landmarkDetails.landmark.id}
+            isSaved={landmarkDetails.is_saved}
+          />
+        </View>
+      ),
+    })
+  }, [landmarkDetails])
 
   function getLandmarkById(id) {
     axiosInstance
@@ -56,27 +63,12 @@ const LandmarkScreen = ({ navigation, route }) => {
       })
   }
 
-  function onRefresh() {
-    setRefreshing(true)
-
-    getLandmarkById(landmarkId)
-
-    setTimeout(() => {
-      setRefreshing(false)
-    })
-  }
-
   useEffect(() => {
-    onRefresh()
+    getLandmarkById(landmarkId)
   }, [])
 
   return (
-    <ScrollView
-      contentContainerStyle={{ padding: 16 }}
-      refreshControl={
-        <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
-      }
-    >
+    <UserLayout>
       <View>
         <View style={{ marginBottom: 8 }}>
           <Text style={styles.landmarkName}>
@@ -114,7 +106,7 @@ const LandmarkScreen = ({ navigation, route }) => {
           )}
         </ScrollView>
 
-        <View style={{ marginVertical: 10 }}>
+        <View style={{ marginTop: 24 }}>
           <Text style={{ fontSize: 16, fontWeight: 600 }}>Address:</Text>
           <Text style={{ color: colors.darkGrey }}>
             {landmarkDetails.landmark?.address}
@@ -127,7 +119,7 @@ const LandmarkScreen = ({ navigation, route }) => {
         />
 
         <Text
-          style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}
+          style={{ fontSize: 16, marginTop: 24, fontWeight: 600 }}
           selectable
         >
           Landmark Details:
@@ -141,7 +133,7 @@ const LandmarkScreen = ({ navigation, route }) => {
         </Text>
 
         <Text
-          style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}
+          style={{ fontSize: 16, marginTop: 24, fontWeight: 600 }}
           selectable
           selectionColor={colors.lightGreen}
         >
@@ -154,8 +146,43 @@ const LandmarkScreen = ({ navigation, route }) => {
         >
           {landmarkDetails.landmark?.facts}
         </Text>
+
+        <View>
+          <Text style={{ fontSize: 16, marginTop: 24, fontWeight: 600 }}>
+            Location:
+          </Text>
+
+          {!Object.keys(landmarkDetails.landmark).length ? (
+            <ActivityIndicator />
+          ) : (
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: stringToLatitude(landmarkDetails?.landmark?.latitude),
+                longitude: stringToLongitude(
+                  landmarkDetails?.landmark?.longitude
+                ),
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+            >
+              <Marker
+                coordinate={{
+                  latitude: stringToLatitude(
+                    landmarkDetails?.landmark?.latitude
+                  ),
+                  longitude: stringToLongitude(
+                    landmarkDetails?.landmark?.longitude
+                  ),
+                }}
+                title={landmarkDetails?.landmark?.name}
+                description={landmarkDetails?.landmark?.address}
+              />
+            </MapView>
+          )}
+        </View>
       </View>
-    </ScrollView>
+    </UserLayout>
   )
 }
 
@@ -164,6 +191,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 8,
+  },
+  map: {
+    height: 200,
+    marginTop: 8,
   },
 })
 

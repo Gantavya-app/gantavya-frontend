@@ -29,8 +29,6 @@ export default function AuthProvider({ children }) {
         },
       })
 
-      console.log("new user", response.data)
-
       saveUser({
         name: response.data.name,
         email: response.data.email,

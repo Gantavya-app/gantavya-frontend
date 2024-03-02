@@ -6,9 +6,10 @@ import { axiosInstance } from "../../../../utils/config/api"
 import colors from "../../../../utils/constants/colors"
 import Button from "../../../../components/common/Button"
 import { AuthContext } from "../../../../contexts/AuthContext"
+import Toast from "react-native-root-toast"
 
 const AccountScreen = () => {
-  const { user } = useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext)
 
   const [oldPassword, setOldPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
@@ -24,7 +25,40 @@ const AccountScreen = () => {
   }
 
   const handleChangePassword = () => {
-    // Logic to change password
+    axiosInstance
+      .put(
+        "/users/profile/changepassword/",
+        {
+          old_password: oldPassword,
+          new_password: newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("change password", res.data)
+
+        Toast.show("Password changed successfully!", {
+          duration: Toast.durations.LONG,
+        })
+
+        if (res.status === 200) {
+          logOut()
+        }
+      })
+      .catch((err) => {
+        console.log("change password error", err)
+
+        Toast.show(`Password change failed!\n${err.response.data.detail}`, {
+          duration: Toast.durations.LONG,
+        })
+      })
+    // .finally(() => {
+    //   console.log("change password finally")
+    // })
   }
 
   const handleDeleteAccount = () => {
@@ -42,6 +76,7 @@ const AccountScreen = () => {
       })
       .finally(() => {
         console.log("Account deleted")
+        logOut()
       })
   }
 

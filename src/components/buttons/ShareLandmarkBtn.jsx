@@ -28,7 +28,7 @@ const ShareLandmarkBtn = ({ content }) => {
 
   return (
     <Pressable onPress={onShare}>
-      <Ionicons name="share-outline" size={20} color={colors.darkGrey} />
+      <Ionicons name="share-outline" size={20} color={colors.darkBlue} />
     </Pressable>
   )
 }

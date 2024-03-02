@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import {
   ActivityIndicator,
+  Button,
   Image,
   ScrollView,
   StyleSheet,
@@ -20,6 +21,7 @@ import {
   stringToLongitude,
 } from "../../utils/helpers/latLongHelpers"
 import UserLayout from "../../utils/Layouts/UserLayout"
+import TextToSpeechBtn from "../../components/buttons/TextToSpeechBtn"
 
 const LandmarkScreen = ({ navigation, route }) => {
   const { landmarkId } = route.params
@@ -41,6 +43,9 @@ const LandmarkScreen = ({ navigation, route }) => {
           <SaveLandmarkBtn
             id={landmarkDetails.landmark.id}
             isSaved={landmarkDetails.is_saved}
+          />
+          <TextToSpeechBtn
+            text={`${landmarkDetails?.landmark?.name}\n${landmarkDetails?.landmark?.address}\n${landmarkDetails?.landmark?.description}\n${landmarkDetails?.landmark?.facts}\n`}
           />
         </View>
       ),

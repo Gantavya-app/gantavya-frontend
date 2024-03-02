@@ -23,6 +23,7 @@ import {
   stringToLatitude,
   stringToLongitude,
 } from "../../utils/helpers/latLongHelpers"
+import TextToSpeechBtn from "../../components/buttons/TextToSpeechBtn"
 
 const ResultScreen = ({ navigation, route }) => {
   const { landmarkId, confidence_score } = route.params
@@ -44,6 +45,9 @@ const ResultScreen = ({ navigation, route }) => {
           <SaveLandmarkBtn
             id={landmarkDetails.landmark.id}
             isSaved={landmarkDetails.is_saved}
+          />
+          <TextToSpeechBtn
+            text={`${landmarkDetails?.landmark?.name}\n${landmarkDetails?.landmark?.address}\n${landmarkDetails?.landmark?.description}\n${landmarkDetails?.landmark?.facts}\n`}
           />
         </View>
       ),

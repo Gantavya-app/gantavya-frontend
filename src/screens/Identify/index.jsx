@@ -5,6 +5,7 @@ import ImagePicker from "./components/ImagePicker"
 import colors from "../../utils/constants/colors"
 import { axiosInstance } from "../../utils/config/api"
 import { AuthContext } from "../../contexts/AuthContext"
+import ProgressCircleSnail from "react-native-progress/CircleSnail"
 
 export default function IdentifyScreen({ navigation, route }) {
   const [image, setImage] = useState(null)
@@ -103,7 +104,10 @@ export default function IdentifyScreen({ navigation, route }) {
           )}
 
           {loading ? (
-            <Text>Loading results...</Text>
+            <View style={{ alignItems: "center" }}>
+              <Text>Identifying...</Text>
+              <ProgressCircleSnail size={64} />
+            </View>
           ) : (
             <ImagePicker
               setMessage={setMessage}

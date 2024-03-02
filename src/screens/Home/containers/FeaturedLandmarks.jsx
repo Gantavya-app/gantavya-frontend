@@ -30,45 +30,49 @@ const FeaturedLandmarks = ({ landmarks }) => {
         </Pressable>
       </View>
 
-      <FlatList
-        data={landmarks.slice(0, 5)}
-        horizontal
-        contentContainerStyle={{
-          gap: 24,
-        }}
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <Pressable
-            onPress={() =>
-              navigation.navigate("Landmark", {
-                landmarkId: item.id,
-              })
-            }
-          >
-            <View style={styles.landmarkCard}>
-              <Image
-                source={{
-                  uri: item?.photos?.length
-                    ? item?.photos[0]
-                    : "https://via.placeholder.com/150",
-                }}
-                style={{
-                  width: "100%",
-                  height: 150,
-                  borderRadius: 5,
-                  objectFit: "cover",
-                  marginBottom: 8,
-                }}
-              />
-              <View>
-                <Text style={styles.landmarkName}>{item.name}</Text>
-                <Chip text={item?.type} />
+      {!landmarks.length ? (
+        <Text>No landmarks to show</Text>
+      ) : (
+        <FlatList
+          data={landmarks}
+          horizontal
+          contentContainerStyle={{
+            gap: 24,
+          }}
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() =>
+                navigation.navigate("Landmark", {
+                  landmarkId: item.id,
+                })
+              }
+            >
+              <View style={styles.landmarkCard}>
+                <Image
+                  source={{
+                    uri: item?.photos?.length
+                      ? item?.photos[0]
+                      : "https://via.placeholder.com/150",
+                  }}
+                  style={{
+                    width: "100%",
+                    height: 150,
+                    borderRadius: 5,
+                    objectFit: "cover",
+                    marginBottom: 8,
+                  }}
+                />
+                <View>
+                  <Text style={styles.landmarkName}>{item.name}</Text>
+                  <Chip text={item?.type} />
+                </View>
               </View>
-            </View>
-          </Pressable>
-        )}
-      />
+            </Pressable>
+          )}
+        />
+      )}
     </View>
   )
 }

@@ -1,18 +1,21 @@
-import React from "react"
+import React, { useContext } from "react"
 import colors from "../../../utils/constants/colors"
 import {
   FlatList,
   Image,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
 } from "react-native"
 import Chip from "../../../components/common/Chip"
 import { useNavigation } from "@react-navigation/native"
+import { LandmarkContext } from "../../../contexts/LandmarkContext"
 
-const FeaturedLandmarks = ({ landmarks }) => {
+const FeaturedLandmarks = () => {
   const navigation = useNavigation()
+  const { featuredLandmarks: landmarks } = useContext(LandmarkContext)
 
   return (
     <View style={styles.landmarksContainer}>
@@ -29,20 +32,19 @@ const FeaturedLandmarks = ({ landmarks }) => {
           <Text style={{ color: colors.darkBlue }}>View All</Text>
         </Pressable>
       </View>
-
       {!landmarks.length ? (
         <Text>No landmarks to show</Text>
       ) : (
-        <FlatList
-          data={landmarks}
+        <ScrollView
           horizontal
           contentContainerStyle={{
             gap: 24,
           }}
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
+        >
+          {landmarks.map((item, index) => (
             <Pressable
+              key={item?.id}
               onPress={() =>
                 navigation.navigate("Landmark", {
                   landmarkId: item.id,
@@ -65,13 +67,13 @@ const FeaturedLandmarks = ({ landmarks }) => {
                   }}
                 />
                 <View>
-                  <Text style={styles.landmarkName}>{item.name}</Text>
+                  <Text style={styles.landmarkName}>{item?.name}</Text>
                   <Chip text={item?.type} />
                 </View>
               </View>
             </Pressable>
-          )}
-        />
+          ))}
+        </ScrollView>
       )}
     </View>
   )

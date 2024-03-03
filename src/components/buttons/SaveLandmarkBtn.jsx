@@ -2,68 +2,24 @@ import React, { useContext, useEffect, useState } from "react"
 import { Pressable } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import ProgressCircleSnail from "react-native-progress/CircleSnail"
-import { axiosInstance } from "../../utils/config/api"
-import { AuthContext } from "../../contexts/AuthContext"
 import colors from "../../utils/constants/colors"
+import { LandmarkContext } from "../../contexts/LandmarkContext"
 
 const SaveLandmarkBtn = ({ id, isSaved }) => {
   const [saved, setSaved] = useState(isSaved)
-  const [loading, setLoading] = useState(false)
-  const { user } = useContext(AuthContext)
+
+  const { loading, saveLandmark, unsaveLandmark } = useContext(LandmarkContext)
 
   useEffect(() => {
     setSaved(isSaved)
   }, [isSaved])
 
   function handleSave() {
-    setLoading(true)
-    axiosInstance
-      .post(
-        `/landmark/saved_by/${id}/`,
-        {
-          is_saved: true,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      )
-      .then((response) => {
-        setSaved(true)
-      })
-      .catch((err) => {
-        console.log("save error", err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    saveLandmark({ id })
   }
 
   function handleUnsave() {
-    setLoading(true)
-
-    axiosInstance
-      .post(
-        `/landmark/saved_by/${id}/`,
-        {
-          is_saved: "false",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      )
-      .then((response) => {
-        setSaved(false)
-      })
-      .catch((err) => {
-        console.log("unsave error", err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    unsaveLandmark({ id })
   }
 
   return (

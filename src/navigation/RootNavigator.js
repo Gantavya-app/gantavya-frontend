@@ -32,6 +32,9 @@ export default function RootNavigator() {
           <Stack.Group
             screenOptions={{
               headerShown: true,
+              headerTitleStyle: {
+                fontSize: 16,
+              },
             }}
           >
             <Stack.Screen
@@ -78,15 +81,17 @@ export default function RootNavigator() {
               <Stack.Screen
                 name="Landmark"
                 component={LandmarkScreen}
-                // options={{
-                //   headerBackTitle: "Back",
-                //   headerTitleStyle: {
-                //     borderWidth: 1,
-                //     borderColor: colors.black,
-                //   },
-                // }}
+                options={{
+                  headerTitle: "Landmark Detail",
+                }}
               />
-              <Stack.Screen name="PredictionResult" component={ResultScreen} />
+              <Stack.Screen
+                name="PredictionResult"
+                component={ResultScreen}
+                options={{
+                  headerTitle: "Prediction Result",
+                }}
+              />
             </Stack.Group>
           </Stack.Group>
         ) : (

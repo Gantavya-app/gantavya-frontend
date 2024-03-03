@@ -3,9 +3,15 @@ import { Pressable } from "react-native"
 import { Ionicons } from "@expo/vector-icons"
 import colors from "../../utils/constants/colors"
 import * as Speech from "expo-speech"
+import { useNavigation } from "@react-navigation/native"
 
 const TextToSpeechBtn = ({ text }) => {
   const [isSpeaking, setIsSpeaking] = useState(false)
+  const navigation = useNavigation()
+
+  navigation.addListener("beforeRemove", (e) => {
+    Speech.stop()
+  })
 
   function speak() {
     Speech.speak(text, {

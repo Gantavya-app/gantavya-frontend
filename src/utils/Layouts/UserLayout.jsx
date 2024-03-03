@@ -1,31 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react"
-import { RefreshControl, ScrollView, StyleSheet } from "react-native"
+import React, { useContext } from "react"
+import {
+  ActivityIndicator,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+} from "react-native"
+import { LandmarkContext } from "../../contexts/LandmarkContext"
 
 export default function UserLayout({ children }) {
-  const [refreshing, setRefreshing] = useState(false)
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true)
-
-    setTimeout(() => {
-      setRefreshing(false)
-    }, 1500)
-  }, [])
-
-  useEffect(() => {
-    onRefresh()
-  }, [])
+  const { loading, onRefresh } = useContext(LandmarkContext)
 
   return (
     <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={onRefresh} />
+      }
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingBottom: 36 }}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
       style={styles.container}
     >
-      {children}
+      {loading ? <ActivityIndicator /> : children}
     </ScrollView>
   )
 }

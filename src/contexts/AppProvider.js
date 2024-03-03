@@ -1,6 +1,11 @@
 import React from "react"
 import AuthProvider from "./AuthContext"
+import LandmarkProvider from "./LandmarkContext"
 
 export default function AppProvider({ children }) {
-  return <AuthProvider>{children}</AuthProvider>
+  return (
+    <AuthProvider>
+      <LandmarkProvider>{children}</LandmarkProvider>
+    </AuthProvider>
+  )
 }

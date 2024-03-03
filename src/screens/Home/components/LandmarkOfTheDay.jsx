@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import {
   StyleSheet,
   Text,
@@ -9,19 +9,20 @@ import {
 } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import dimensions from "../../../utils/constants/dimensions"
+import { LandmarkContext } from "../../../contexts/LandmarkContext"
 
-const LandmarkOfTheDay = ({ landmark }) => {
-  const { name, id, photos, type } = landmark
-
+const LandmarkOfTheDay = () => {
+  const { landmarkOfTheDay: landmark } = useContext(LandmarkContext)
+  // console.log(landmark)
   const navigation = useNavigation()
 
-  return !landmark ? (
+  return !Object.keys(landmark).length ? (
     <ActivityIndicator />
   ) : (
     <Pressable
       onPress={() =>
         navigation.navigate("Landmark", {
-          landmarkId: id,
+          landmarkId: landmark?.id,
         })
       }
     >
@@ -35,18 +36,19 @@ const LandmarkOfTheDay = ({ landmark }) => {
         >
           For you
         </Text>
-        <View key={id} style={styles.cardContainer}>
+        <View key={landmark?.id} style={styles.cardContainer}>
           <Image
             source={{
               uri:
-                photos[0] || `https://via.placeholder.com/${dimensions.width}`,
+                landmark?.photos[0] ||
+                `https://via.placeholder.com/${dimensions.width}`,
             }}
             style={styles.cardImage}
             resizeMode="cover"
           />
           <View style={styles.cardContent}>
-            <Text style={styles.cardTitle}>{name}</Text>
-            <Text style={styles.cardType}>{type}</Text>
+            <Text style={styles.cardTitle}>{landmark?.name}</Text>
+            <Text style={styles.cardType}>{landmark?.type}</Text>
           </View>
         </View>
       </View>

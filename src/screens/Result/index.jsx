@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from "react"
 import {
   ActivityIndicator,
   Image,
-  RefreshControl,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -77,22 +75,16 @@ const ResultScreen = ({ navigation, route }) => {
   return (
     <UserLayout>
       <View>
-        <Text style={{ fontSize: 20, marginVertical: 4 }}>
-          Prediction Results:
-        </Text>
-      </View>
-
-      <View>
-        <Text>Confidence Score: {(confidence_score * 100).toFixed(2)}%</Text>
-        <ProgressBar progress={confidence_score} />
-      </View>
-
-      <View>
         <View style={{ marginBottom: 8 }}>
           <Text style={styles.landmarkName}>
             {landmarkDetails.landmark?.name}
           </Text>
           <Chip text={landmarkDetails.landmark?.type} />
+        </View>
+
+        <View style={{ flex: 1 }}>
+          <Text>Confidence Score: {(confidence_score * 100).toFixed(2)}%</Text>
+          <ProgressBar progress={confidence_score} width={300} height={24} />
         </View>
 
         <ScrollView

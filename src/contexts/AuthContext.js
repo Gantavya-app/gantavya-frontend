@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react"
+import React, { createContext, useContext, useEffect, useState } from "react"
 import Toast from "react-native-root-toast"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { axiosInstance } from "../utils/config/api"
@@ -75,3 +75,5 @@ export default function AuthProvider({ children }) {
     <AuthContext.Provider value={authCtxValue}>{children}</AuthContext.Provider>
   )
 }
+
+export const useAuth = () => useContext(AuthContext)

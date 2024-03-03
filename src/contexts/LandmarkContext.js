@@ -126,7 +126,10 @@ const LandmarkProvider = ({ children }) => {
       )
       .then((response) => {
         setLandmark((prev) => ({ ...prev, isSaved: true }))
-        setSavedLandmarks((prev) => [...prev, landmark])
+        setSavedLandmarks((prev) => [
+          ...prev.filter((landmark) => landmark.id != id),
+          landmark,
+        ])
       })
       .catch((err) => {
         console.log("unsave error", err)
@@ -219,7 +222,10 @@ const LandmarkProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    onRefresh()
+    user?.token && onRefresh()
+    if (!user?.token) {
+      setLoading(false)
+    }
   }, [user])
 
   return (

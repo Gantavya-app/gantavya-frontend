@@ -70,10 +70,13 @@ const AccountScreen = () => {
       })
       .then((res) => {
         console.log("Account deleted", res.data)
-        if (res.status === 204) logOut()
+        logOut()
       })
       .catch((err) => {
         console.log(err)
+        if (err.response.status === 401) {
+          logOut()
+        }
       })
       .finally(() => {
         console.log("Account deleted")

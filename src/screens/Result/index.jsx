@@ -8,8 +8,6 @@ import {
   View,
 } from "react-native"
 import ProgressBar from "react-native-progress/Bar"
-import { AuthContext } from "../../contexts/AuthContext"
-import { axiosInstance } from "../../utils/config/api"
 import Chip from "../../components/common/Chip"
 import LandmarkLocationCard from "../../components/cards/LandmarkLocationCard"
 import ShareLandmarkBtn from "../../components/buttons/ShareLandmarkBtn"
@@ -22,64 +20,38 @@ import {
   stringToLongitude,
 } from "../../utils/helpers/latLongHelpers"
 import TextToSpeechBtn from "../../components/buttons/TextToSpeechBtn"
+import { LandmarkContext } from "../../contexts/LandmarkContext"
 
 const ResultScreen = ({ navigation, route }) => {
   const { landmarkId, confidence_score } = route.params
-  const { user } = useContext(AuthContext)
-
-  const [landmarkDetails, setLandmarkDetails] = useState({
-    is_saved: false,
-    landmark: {},
-    photos: [],
-  })
+  const { landmark, getLandmarkById } = useContext(LandmarkContext)
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
           <ShareLandmarkBtn
-            content={`${landmarkDetails?.landmark?.name}\n${landmarkDetails?.landmark?.address}\n${landmarkDetails?.landmark?.description}`}
+            content={`${landmark?.name}\n${landmark?.address}\n${landmark?.description}`}
           />
-          <SaveLandmarkBtn
-            id={landmarkDetails.landmark.id}
-            isSaved={landmarkDetails.is_saved}
-          />
+          <SaveLandmarkBtn id={landmark.id} isSaved={landmark.isSaved} />
           <TextToSpeechBtn
-            text={`${landmarkDetails?.landmark?.name}\n${landmarkDetails?.landmark?.address}\n${landmarkDetails?.landmark?.description}\n${landmarkDetails?.landmark?.facts}\n`}
+            text={`${landmark?.name}\n${landmark?.address}\n${landmark?.description}\n${landmark?.facts}\n`}
           />
         </View>
       ),
     })
-  }, [landmarkDetails])
-
-  function getLandmarkById(id) {
-    axiosInstance
-      .get(`/landmark/${id}/`, {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      })
-      .then((response) => {
-        // console.log("landmark ", id, response?.data)
-        setLandmarkDetails(response?.data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+  }, [])
 
   useEffect(() => {
-    getLandmarkById(landmarkId)
+    getLandmarkById({ id: landmarkId })
   }, [])
 
   return (
     <UserLayout>
       <View>
         <View style={{ marginBottom: 8 }}>
-          <Text style={styles.landmarkName}>
-            {landmarkDetails.landmark?.name}
-          </Text>
-          <Chip text={landmarkDetails.landmark?.type} />
+          <Text style={styles.landmarkName}>{landmark?.name}</Text>
+          <Chip text={landmark?.type} />
         </View>
 
         <View style={{ flex: 1 }}>
@@ -92,10 +64,10 @@ const ResultScreen = ({ navigation, route }) => {
           style={{ marginVertical: 24 }}
           showsHorizontalScrollIndicator={false}
         >
-          {!landmarkDetails?.photos?.length ? (
+          {!landmark?.photos?.length ? (
             <Text>No photos available.</Text>
           ) : (
-            landmarkDetails?.photos?.map((photo, index) => (
+            landmark?.photos?.map((photo, index) => (
               <Image
                 key={index}
                 source={{
@@ -118,28 +90,26 @@ const ResultScreen = ({ navigation, route }) => {
 
         <View style={{ marginVertical: 10 }}>
           <Text style={{ fontSize: 16, fontWeight: 600 }}>Address:</Text>
-          <Text style={{ color: colors.darkGrey }}>
-            {landmarkDetails.landmark?.address}
-          </Text>
+          <Text style={{ color: colors.darkGrey }}>{landmark?.address}</Text>
         </View>
 
         <LandmarkLocationCard
-          latitude={landmarkDetails?.landmark?.latitude}
-          longitude={landmarkDetails?.landmark?.longitude}
+          latitude={landmark?.latitude}
+          longitude={landmark?.longitude}
         />
 
         <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
           Landmark Details:
         </Text>
         <Text style={{ color: colors.darkGrey }} selectable>
-          {landmarkDetails.landmark?.description}
+          {landmark?.description}
         </Text>
 
         <Text style={{ fontSize: 16, marginVertical: 8, fontWeight: 600 }}>
           Facts:
         </Text>
         <Text style={{ color: colors.darkGrey }} selectable>
-          {landmarkDetails.landmark?.facts}
+          {landmark?.facts}
         </Text>
       </View>
 
@@ -148,29 +118,25 @@ const ResultScreen = ({ navigation, route }) => {
           Location:
         </Text>
 
-        {!Object.keys(landmarkDetails.landmark).length ? (
+        {!Object.keys(landmark).length ? (
           <ActivityIndicator />
         ) : (
           <MapView
             style={styles.map}
             initialRegion={{
-              latitude: stringToLatitude(landmarkDetails?.landmark?.latitude),
-              longitude: stringToLongitude(
-                landmarkDetails?.landmark?.longitude
-              ),
+              latitude: stringToLatitude(landmark?.latitude),
+              longitude: stringToLongitude(landmark?.longitude),
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
           >
             <Marker
               coordinate={{
-                latitude: stringToLatitude(landmarkDetails?.landmark?.latitude),
-                longitude: stringToLongitude(
-                  landmarkDetails?.landmark?.longitude
-                ),
+                latitude: stringToLatitude(landmark?.latitude),
+                longitude: stringToLongitude(landmark?.longitude),
               }}
-              title={landmarkDetails?.landmark?.name}
-              description={landmarkDetails?.landmark?.address}
+              title={landmark?.name}
+              description={landmark?.address}
             />
           </MapView>
         )}

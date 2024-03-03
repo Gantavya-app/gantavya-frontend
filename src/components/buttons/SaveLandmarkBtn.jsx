@@ -16,10 +16,12 @@ const SaveLandmarkBtn = ({ id, isSaved }) => {
 
   function handleSave() {
     saveLandmark({ id })
+    setSaved(true)
   }
 
   function handleUnsave() {
     unsaveLandmark({ id })
+    setSaved(false)
   }
 
   return (

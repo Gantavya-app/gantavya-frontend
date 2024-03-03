@@ -16,15 +16,17 @@ const LandmarkOfTheDay = () => {
   // console.log(landmark)
   const navigation = useNavigation()
 
-  return !Object.keys(landmark).length ? (
+  return !landmark ? (
+    <Text>No landmark.</Text>
+  ) : !Object.keys(landmark).length ? (
     <ActivityIndicator />
   ) : (
     <Pressable
-      onPress={() =>
+      onPress={() => {
         navigation.navigate("Landmark", {
           landmarkId: landmark?.id,
         })
-      }
+      }}
     >
       <View style={{ marginTop: 24, flex: 1 }}>
         <Text

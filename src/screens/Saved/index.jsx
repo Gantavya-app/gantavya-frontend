@@ -20,16 +20,20 @@ export default function SavedScreen() {
         </View>
       ) : (
         <View style={{ alignItems: "center" }}>
-          {savedLandmarks.map((item) => (
-            <View style={{ marginVertical: 8 }} key={item?.id}>
-              <SavedLandmarkCard
-                name={item?.name}
-                id={item?.id}
-                type={item?.type}
-                image={item?.photos[0]}
-              />
-            </View>
-          ))}
+          {savedLandmarks.map((item, index) =>
+            !Object.keys(item).length ? (
+              <ActivityIndicator />
+            ) : (
+              <View style={{ marginVertical: 8 }} key={item?.id + index}>
+                <SavedLandmarkCard
+                  name={item?.name}
+                  id={item?.id}
+                  type={item?.type}
+                  image={item?.photos[0] || "https://via.placeholder.com/300"}
+                />
+              </View>
+            )
+          )}
         </View>
       )}
     </UserLayout>

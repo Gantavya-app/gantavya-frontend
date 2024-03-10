@@ -32,7 +32,9 @@ _The application is currently is not yet ready for production use._
 
 ## Video Demo
 
-<video controls src="./project/demo/Gantavya.mp4" title="Title"></video>
+<!-- <video controls src="./project/demo/Gantavya.mp4" title="Title"></video> -->
+
+https://github.com/Gantavya-app/gantavya-frontend/blob/main/project/demo/Gantavya.mp4
 
 ## Tech Stack
 
